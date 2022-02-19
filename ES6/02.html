@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>02. ES6에서 순회와 이터러블: 이터레이터 프로토콜</title>
+        <script>
+            const log = console.log;
+            const groupCollapsed = console.groupCollapsed;
+            const groupEnd = console.groupEnd;
+        </script>
+    </head>
+    <body>
+        <h2>기존과 달라진 ES6에서의 리스트 순회</h2>
+        <ul>
+            <li>for i++</li>
+            <li>for of</li>
+        </ul>
+        <pre>
+    // ES5
+    const list = [1, 2, 3];
+    for (var i = 0; i < list.length; i++) {
+        log(list[i]);
+    }
+
+    const str = 'abc';
+    for (var i = 0; i < str.length; i++) {
+        log(str[i]);
+    }
+
+    // ES6
+    for (const a of list) {
+        log(a);
+    }
+
+    for (const a of str) {
+        log(a);
+    }
+        </pre>
+
+        <script>
+            groupCollapsed('기존과 달라진 ES6에서의 리스트 순회');
+            // ES5
+            const list = [1, 2, 3];
+            for (var i = 0; i < list.length; i++) {
+                log(list[i]);
+            }
+
+            const str = 'abc';
+            for (var i = 0; i < str.length; i++) {
+                log(str[i]);
+            }
+
+            // ES6
+            for (const a of list) {
+                log(a);
+            }
+
+            for (const a of str) {
+                log(a);
+            }
+            groupEnd();
+        </script>
+
+        <h3>Array를 통해 알아보기</h3>
+        <pre>
+    const arr = [1, 2, 3];
+    let iter1 = arr[Symbol.iterator]();
+    for (const a of iter1) {
+        log(a);
+    }
+        </pre>
+        <script>
+            groupCollapsed('Array를 통해 알아보기');
+            const arr = [1, 2, 3];
+            let iter1 = arr[Symbol.iterator]();
+            for (const a of iter1) {
+                log(a);
+            }
+            groupEnd();
+        </script>
+
+        <h3>Set을 통해 알아보기</h3>
+        <!-- prettier-ignore -->
+        <pre>
+    const set = new Set([1, 2, 3]);
+    for (const a of set) {
+        log(a);
+    }
+        </pre>
+        <script>
+            groupCollapsed('Set을 통해 알아보기');
+            const set = new Set([1, 2, 3]);
+            for (const a of set) {
+                log(a);
+            }
+            groupEnd();
+        </script>
+
+        <h3>Map을 통해 알아보기</h3>
+        <pre>
+    const map = new Map([
+        ['a', 1],
+        ['b', 2],
+        ['c', 3],
+    ]);
+    for (const a of map.keys()) {
+        log(a);
+    }
+    for (const a of map.values()) {
+        log(a);
+    }
+    for (const a of map.entries()) {
+        log(a);
+    }
+        </pre>
+        <script>
+            groupCollapsed('Map을 통해 알아보기');
+            const map = new Map([
+                ['a', 1],
+                ['b', 2],
+                ['c', 3],
+            ]);
+            // map.keys()는 이터레이터
+            for (const a of map.keys()) {
+                log(a);
+            }
+            // map.values()는 이터레이터
+            for (const a of map.values()) {
+                log(a);
+            }
+            // map.entries()는 이터레이터
+            for (const a of map.entries()) {
+                log(a);
+            }
+            groupEnd();
+        </script>
+
+        <h2>이터러블/이터레이터 프로토콜</h2>
+        <ul>
+            <li>이터러블: 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값</li>
+            <li>이터레이터 : { value, done } 객체를 리턴하는 next()를 가진 값</li>
+            <li>이터러블, 이터레이터 프로토콜: 이터러블을 for...of, 전개 연산자 등과 함께 동작하도록 한 규약</li>
+        </ul>
+
+        <h2>사용자 정의 이터러블을 통해 알아보기</h2>
+        <pre>
+    const iterable = {
+        [Symbol.iterator]() {
+            let i = 3;
+
+            return {
+                next() {
+                    return i == 0 ? { done: true } : { value: i--, done: false };
+                },
+                // Well-formed Iterator(Iterator도 Iterable이 되도록)
+                [Symbol.iterator]() {
+                    return this;
+                },
+            };
+        },
+    };
+    let iterator = iterable[Symbol.iterator]();
+    log(iterator.next());
+    // log(iterator.next());
+    // log(iterator.next());
+    // log(iterator.next());
+    for (const a of iterator) {
+        log(a);
+    }
+
+    // const arr2 = [1, 2, 3];
+    // let iter2 = arr2[Symbol.iterator]();
+    // iter2.next();
+    // log(iter2[Symbol.iterator]() == iter2);
+    // for (const a of iter2) {
+    //     log(a);
+    // }
+    for (const a of document.querySelectorAll('*')) {
+        log(a);
+    }
+    const all = document.querySelectorAll('*');
+    let iter3 = all[Symbol.iterator]();
+    log(iter3.next());
+    log(iter3.next());
+    log(iter3.next());
+    // console.table([iter3.next(), iter3.next(), iter3.next()]);
+        </pre>
+        <script>
+            groupCollapsed('사용자 정의 이터러블을 통해 알아보기');
+            const iterable = {
+                [Symbol.iterator]() {
+                    let i = 3;
+
+                    return {
+                        next() {
+                            return i == 0 ? { done: true } : { value: i--, done: false };
+                        },
+                        // Well-formed Iterator(Iterator도 Iterable이 되도록)
+                        [Symbol.iterator]() {
+                            return this;
+                        },
+                    };
+                },
+            };
+            let iterator = iterable[Symbol.iterator]();
+            log(iterator.next());
+            // log(iterator.next());
+            // log(iterator.next());
+            // log(iterator.next());
+            for (const a of iterator) {
+                log(a);
+            }
+
+            // const arr2 = [1, 2, 3];
+            // let iter2 = arr2[Symbol.iterator]();
+            // iter2.next();
+            // log(iter2[Symbol.iterator]() == iter2);
+            // for (const a of iter2) {
+            //     log(a);
+            // }
+            for (const a of document.querySelectorAll('*')) {
+                log(a);
+            }
+            const all = document.querySelectorAll('*');
+            let iter3 = all[Symbol.iterator]();
+            log(iter3.next());
+            log(iter3.next());
+            log(iter3.next());
+            // console.table([iter3.next(), iter3.next(), iter3.next()]);
+            groupEnd();
+        </script>
+
+        <h2>전개 연산자(Spread Operator)</h2>
+        <pre>
+    const a = [1, 2];
+    log([...a, ...arr, ...set, ...map.keys()]);
+        </pre>
+        <script>
+            groupCollapsed('전개 연산자(Spread Operator)');
+            const a = [1, 2];
+            log([...a, ...arr, ...set, ...map.keys()]);
+            groupEnd();
+        </script>
+    </body>
+</html>
