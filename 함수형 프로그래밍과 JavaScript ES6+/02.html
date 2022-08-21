@@ -72,5 +72,16 @@
                 log(a);
             }
         </script>
+
+        # for of, 전개 연산자, 구조 분해, 나머지 연산자
+        <script>
+            log(...odds(10));
+            log([...odds(10), ...odds(20)]);
+
+            const [a, b, ...rest] = odds(5);
+            log(a);
+            log(b);
+            log(rest);
+        </script>
     </body>
 </html>
