@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>02. 제너레이터와 이터레이터</title>
+        <script>
+            const log = console.log;
+        </script>
+    </head>
+    <body>
+        # 제너레이터 / 이터레이터 - 제너레이터: 이터레이터이자 이터러블을
+        생성하는 함수
+        <script>
+            function* gen() {
+                yield 1;
+                if (false) {
+                    yield 2;
+                }
+                yield 3;
+                return 100;
+            }
+            let iter = gen();
+            // generator는 well-formed iterator를 리턴하는 함수
+            log(iter[Symbol.iterator] == iter);
+            log(iter.next());
+            log(iter.next());
+            log(iter.next());
+            log(iter.next());
+
+            // 순회할때 리턴값은 없이 순회
+            for (const a of gen()) {
+                log(a);
+            }
+        </script>
+    </body>
+</html>
