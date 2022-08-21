@@ -19,7 +19,7 @@
     4. [x] 전개 연산자
 2. [제너레이터와 이터레이터](./%ED%95%A8%EC%88%98%ED%98%95%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC%20JavaScript%20ES6%2B/02.html)
     1. [x] 제너레이터와 이터레이터
-    2. [ ] odds
+    2. [x] odds
     3. [ ] for...of, 전개 연산자, 구조 분해, 나머지 연산자
 3. map, filter, reduce
     1. [ ] map
