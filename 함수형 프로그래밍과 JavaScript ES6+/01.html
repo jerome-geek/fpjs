@@ -133,5 +133,12 @@
             log(iter3.next());
             log(iter3.next());
         </script>
+
+        ## 전개 연산자
+        <script>
+            const a = [1, 2];
+            // a[Symbol.iterator] = null;
+            log([...a, ...arr, ...set, ...map.keys()]);
+        </script>
     </body>
 </html>
