@@ -26,8 +26,8 @@
     2. [x] 이터러블 프로토콜을 따른 map의 다형성 1
     3. [x] 이터러블 프로토콜을 따른 map의 다형성 2
     4. [x] filter
-    5. [ ] reduce
-    6. [ ] reduce2
+    5. [x] reduce
+    6. [x] reduce2
     7. [ ] map + filter + reduce 중첩 사용과 함수형 사고
 4. 코드를 값으로 다루어 표현력 높이기
     1. [ ] go

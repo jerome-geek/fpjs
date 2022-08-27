@@ -126,5 +126,53 @@
                 ),
             );
         </script>
+
+        <!-- prettier-ignore -->
+        # reduce 
+        - 값을 축약하는 함수
+        <script>
+            const nums = [1, 2, 3, 4, 5];
+
+            let total = 0;
+            for (const n of nums) {
+                total = total + n;
+            }
+            log(total);
+
+            const reduce = (f, acc, iter) => {
+                // iter가 없는 경우 acc가 iter
+                if (!iter) {
+                    iter = acc[Symbol.iterator]();
+                    acc = iter.next().value;
+                }
+
+                for (const a of iter) {
+                    acc = f(acc, a);
+                }
+                return acc;
+            };
+
+            const add = (a, b) => a + b;
+            // 15
+            log(reduce(add, 0, [1, 2, 3, 4, 5]));
+
+            // 15
+            log(add(add(add(add(add(0, 1), 2), 3), 4), 5));
+
+            // 15
+            log(reduce(add, [1, 2, 3, 4, 5]));
+            // 내부적으로는 아래와 같이 동작한다
+            // log(reduce(add, 1, [1,2,3,4,5]))
+        </script>
+
+        <script>
+            log(
+                reduce(
+                    (total_price, product) => total_price + product.price,
+                    0,
+                    products,
+                ),
+            );
+        </script>
     </body>
 </html>
