@@ -24,7 +24,7 @@
 3. [map, filter, reduce](함수형%20프로그래밍과%20JavaScript%20ES6+/03.html)
     1. [x] map
     2. [x] 이터러블 프로토콜을 따른 map의 다형성 1
-    3. [ ] 이터러블 프로토콜을 따른 map의 다형성 2
+    3. [x] 이터러블 프로토콜을 따른 map의 다형성 2
     4. [ ] filter
     5. [ ] reduce
     6. [ ] reduce2
