@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>03. map, filter, reduce</title>
+        <script>
+            const log = console.log;
+        </script>
+    </head>
+    <body>
+        <script>
+            const products = [
+                { name: '반팔티', price: 15000 },
+                { name: '긴팔티', price: 20000 },
+                { name: '핸드폰케이스', price: 15000 },
+                { name: '후드티', price: 30000 },
+                { name: '바지', price: 25000 },
+            ];
+        </script>
+        <!-- prettier-ignore -->
+        # map
+        <script>
+            const map = (f, iter) => {
+                let res = [];
+                for (const p of iter) {
+                    res.push(f(p));
+                }
+                return res;
+            };
+
+            // let names = [];
+            // for (const p of products) {
+            //     names.push(p.name);
+            // }
+            // log(names);
+            log(map((p) => p.name, products));
+
+            // let prices = [];
+            // for (const p of products) {
+            //     prices.push(p.price);
+            // }
+            // log(prices);
+            log(map((p) => p.price, products));
+        </script>
+    </body>
+</html>

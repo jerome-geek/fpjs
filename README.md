@@ -21,8 +21,8 @@
     1. [x] 제너레이터와 이터레이터
     2. [x] odds
     3. [x] for...of, 전개 연산자, 구조 분해, 나머지 연산자
-3. map, filter, reduce
-    1. [ ] map
+3. [map, filter, reduce](함수형%20프로그래밍과%20JavaScript%20ES6+/03.html)
+    1. [x] map
     2. [ ] 이터러블 프로토콜을 따른 map의 다형성 1
     3. [ ] 이터러블 프로토콜을 따른 map의 다형성 2
     4. [ ] filter
