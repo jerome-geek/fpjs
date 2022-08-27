@@ -44,5 +44,34 @@
             // log(prices);
             log(map((p) => p.price, products));
         </script>
+
+        <!-- prettier-ignore -->
+        # 이터러블 프로토콜을 따른 map의 다형성
+        - Array.map과 달리 이터러블 프로토콜을 따른다면 map 함수를 사용할 수 있기 때문에 다형성이 매우 높음
+        <script>
+            log([1, 2, 3].map((a) => a + 1));
+            /**
+             * document.querySelectorAll가 이터러블 프로토콜을 따르고 있기 때문에
+             * 위에서 만든 map함수 사용 가능
+             * -> Array을 상속받지 않았기 때문에 Array.map 사용 불가능
+             */
+            log(map((el) => el.nodeName, document.querySelectorAll('*')));
+
+            // const it = document.querySelectorAll('*')[Symbol.iterator]();
+            // log(it);
+            // log(it.next());
+            // log(it.next());
+            // log(it.next());
+            // log(it.next());
+
+            function* gen() {
+                yield 2;
+                if (false) {
+                    yield 3;
+                }
+                yield 4;
+            }
+            log(map((a) => a * a, gen()));
+        </script>
     </body>
 </html>
