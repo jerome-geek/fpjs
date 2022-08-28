@@ -12,15 +12,39 @@
 
         <script>
             const products = [
-                { name: '반팔티', price: 15000, quantity: 1 },
-                { name: '긴팔티', price: 20000, quantity: 2 },
-                { name: '핸드폰케이스', price: 15000, quantity: 3 },
-                { name: '후드티', price: 30000, quantity: 4 },
-                { name: '바지', price: 25000, quantity: 5 },
+                {
+                    name: '반팔티',
+                    price: 15000,
+                    quantity: 1,
+                    is_selected: true,
+                },
+                {
+                    name: '긴팔티',
+                    price: 20000,
+                    quantity: 2,
+                    is_selected: false,
+                },
+                {
+                    name: '핸드폰케이스',
+                    price: 15000,
+                    quantity: 3,
+                    is_selected: true,
+                },
+                {
+                    name: '후드티',
+                    price: 30000,
+                    quantity: 4,
+                    is_selected: false,
+                },
+                { name: '바지', price: 25000, quantity: 5, is_selected: false },
             ];
 
             const add = (a, b) => a + b;
 
+            /**
+             * sum 함수가 단순히 숫자만 더하는 것이 아니라 html을 만들 수도 있는 등
+             * 함수형 프로그래밍은 다형성이 매우 높다 (데이터 구조나 자료형에 제약X)
+             */
             const sum = curry((f, iter) => go(iter, map(f), reduce(add)));
 
             // log(sum((p) => p.quantity, products));
@@ -62,6 +86,46 @@
             log(total_price(products));
 
             log(sum((u) => u.age, [{ age: 30 }, { age: 20 }, { age: 10 }]));
+
+            document.querySelector('#cart').innerHTML = `
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>상품이름</th>
+                        <th>가격</th>
+                        <th>수량</th>
+                        <th>총 가격</th>
+                    </tr>
+
+                    ${go(
+                        products,
+                        sum(
+                            (p) => `
+                                <tr>
+                                    <td><input type="checkbox" ${
+                                        p.is_selected ? 'checked' : ''
+                                    }></tD>
+                                    <td>${p.name}</td>
+                                    <td>${p.price}</td>
+                                    <td><input type="number" value="${
+                                        p.quantity
+                                    }"></td>
+                                    <td>${p.price * p.quantity}</td>
+                                </tr>
+                            `,
+                        ),
+                    )}
+                    <tr>
+                        <td colspan="3">합계</td>
+                        <td>${total_quantity(
+                            filter((p) => p.is_selected, products),
+                        )}</td>
+                        <td>${total_price(
+                            filter((p) => p.is_selected, products),
+                        )}</td>
+                    </tr>
+                </table>
+            `;
         </script>
     </body>
 </html>
