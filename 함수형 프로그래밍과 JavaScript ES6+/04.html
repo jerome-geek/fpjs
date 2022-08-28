@@ -72,6 +72,41 @@
                 (prices) => reduce(add, prices),
                 log,
             );
+
+            go(
+                products,
+                // (procucts) => filter((p) => p.price < 20000)(products),
+                filter((p) => p.price < 20000),
+                // (products) => map((p) => p.price)(products),
+                map((p) => p.price),
+                // (prices) => reduce(add)(prices),
+                reduce(add),
+                log,
+            );
+        </script>
+
+        <!-- prettier-ignore -->
+        ## curry
+        - 함수를 값으로 다루면서 받아둔 함수를 원하는 시점에 평가시키는 함수
+        <script>
+            /**
+             * 인자가 2개 이상이라면 받아둔 함수를 즉시 실행
+             * 2개 미만이라면 다시 한 번 함수를 리턴하고 그 이후에 들어온 값을 받아서 함수 실행(미리 받은 인자와 새로 받은 인자)
+             */
+            // const curry =
+            //     (f) =>
+            //     (a, ..._) =>
+            //         _.length ? f(a, ..._) : (..._) => f(a, ..._);
+
+            const mult = curry((a, b) => a * b);
+            log(mult);
+            log(mult(1));
+            log(mult(1)(2));
+
+            const mult3 = mult(3);
+            log(mult3(10));
+            log(mult3(5));
+            log(mult3(3));
         </script>
     </body>
 </html>
