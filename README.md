@@ -40,7 +40,7 @@
     2. [x] HTML로 출력하기
 6. 지연성1
     1. [x] range와 느긋한 L.range
-    2. [ ] range와 느긋한 L.range 테스트
+    2. [x] range와 느긋한 L.range 테스트
     3. [ ] take
     4. [ ] 제너레이터 / 이터레이터 프로토콜로 구현하는 지연 평가
     5. [ ] L.map
