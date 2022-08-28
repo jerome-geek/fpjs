@@ -36,3 +36,21 @@ const reduce = curry((f, acc, iter) => {
     }
     return acc;
 });
+
+/**
+ *  go
+ * - 인자들을 받아서 하나의 값으로 축약한다? => reduce 사용!
+ * - go는 함수들과 인자를 전달하여 즉시 값을 평가하는데 사용
+ */
+const go = (...args) => reduce((a, f) => f(a), args);
+
+/**
+ *  pipe
+ * pipe는 내부적으로 go함수를 리턴하는 함수
+ * - 함수들을 나열하여 합성된 함수를 만든다
+ * - 첫번째 함수에서 인자를 2개이상 받을 수 있도록 처리
+ */
+const pipe =
+    (f, ...fs) =>
+    (...as) =>
+        go(f(...as), ...fs);
