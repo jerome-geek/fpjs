@@ -54,8 +54,35 @@
                 }
                 console.timeEnd(name);
             }
-            test('range', 10, () => reduce(add, range(1000000)));
-            test('L.range', 10, () => reduce(add, L.range(1000000)));
+            // test('range', 10, () => reduce(add, range(1000000)));
+            // test('L.range', 10, () => reduce(add, L.range(1000000)));
+        </script>
+
+        ## take
+        <script>
+            const take = curry((l, iter) => {
+                let res = [];
+                for (const a of iter) {
+                    res.push(a);
+                    if (res.length == l) {
+                        return res;
+                    }
+                }
+                return res;
+            });
+
+            console.time('');
+            // 100000개의 원소가 있는 Array를 만든 후 5개를 뽑아온다
+            // log(take(5, range(100000)));
+            go(range(100000), take(5), reduce(add), log);
+            console.timeEnd('');
+
+            console.time('');
+            // 5개의 원소까지만 만들기 때문에 range보다 효율적
+            // -> 어차피 5개의 값만 만들기 때문에 100000대신 Infinity를 사용할 수 있다
+            // log(take(5, L.range(100000)));
+            go(L.range(100000), take(5), reduce(add), log);
+            console.timeEnd('');
         </script>
     </body>
 </html>
