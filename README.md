@@ -43,7 +43,7 @@
     2. [x] range와 느긋한 L.range 테스트
     3. [x] take
     4. [x] 제너레이터 / 이터레이터 프로토콜로 구현하는 지연 평가
-    5. [ ] L.map
+    5. [x] L.map
     6. [ ] L.filter
     7. [ ] range, map, filter, take, reduce 중첩 사용
     8. [ ] L.range, L.map, L.filter, take의 평가 순서
