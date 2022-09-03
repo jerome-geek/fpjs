@@ -44,7 +44,7 @@
     3. [x] take
     4. [x] 제너레이터 / 이터레이터 프로토콜로 구현하는 지연 평가
     5. [x] L.map
-    6. [ ] L.filter
+    6. [x] L.filter
     7. [ ] range, map, filter, take, reduce 중첩 사용
     8. [ ] L.range, L.map, L.filter, take의 평가 순서
     9. [ ] 엄격한 계산과 느긋한 계산의 효율성 비교
