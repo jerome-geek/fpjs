@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>06-07. range, map, filter, take, reduce 중첩 사용</title>
+        <title>06-07. range, map, filter, take, reduce 중첩 사용 ~</title>
         <script src="./lib/fx.js"></script>
     </head>
     <body>
@@ -55,5 +55,16 @@
              * -> [11, 13]
              **/
         </script>
+
+        <!-- prettier-ignore -->
+        ### map, filter 계열 함수들이 가지는 결합 법칙
+
+        - 사용하는 데이터가 무엇이든지
+        - 사용하는 보조 함수가 순수 함수라면 무엇이든지
+        - 아래와 같이 결합한다면 둘 다 결과가 같다.
+
+        [[mapping, mapping], [filtering, filtering], [mapping, mapping]]
+        =
+        [[mapping, filtering, mapping], [mapping, filtering, mapping]]
     </body>
 </html>
