@@ -8,15 +8,21 @@ const curry =
 // 아래 함수들을 curry로 감싸주어 인자를 하나만 받을 경우 이후 인자들을 더 받기로 기다리는 함수를 리턴하는 형태로 바뀜
 const map = curry((f, iter) => {
     let res = [];
-    for (const p of iter) {
-        res.push(f(p));
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
+        res.push(f(a));
     }
     return res;
 });
 
 const filter = curry((f, iter) => {
     let res = [];
-    for (const a of iter) {
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
         if (f(a)) {
             res.push(a);
         }
@@ -29,9 +35,13 @@ const reduce = curry((f, acc, iter) => {
     if (!iter) {
         iter = acc[Symbol.iterator]();
         acc = iter.next().value;
+    } else {
+        iter = iter[Symbol.iterator]();
     }
 
-    for (const a of iter) {
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
         acc = f(acc, a);
     }
     return acc;
@@ -54,3 +64,57 @@ const pipe =
     (f, ...fs) =>
     (...as) =>
         go(f(...as), ...fs);
+
+const range = (l) => {
+    let i = -1;
+    let res = [];
+    while (++i < l) {
+        // log(i, 'range');
+        res.push(i);
+    }
+    return res;
+};
+
+const take = curry((l, iter) => {
+    let res = [];
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
+        res.push(a);
+        if (res.length == l) {
+            return res;
+        }
+    }
+    return res;
+});
+
+const L = {};
+
+L.range = function* (l) {
+    let i = -1;
+    while (++i < l) {
+        // log(i, 'L.range');
+        yield i;
+    }
+};
+
+L.map = curry(function* (f, iter) {
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
+        yield f(a);
+    }
+});
+
+L.filter = curry(function* (f, iter) {
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+        const a = cur.value;
+        if (f(a)) {
+            yield a;
+        }
+    }
+});

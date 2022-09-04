@@ -4,22 +4,22 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>06. 지연성1</title>
         <script src="./lib/fx.js"></script>
     </head>
     <body>
         ## range
         <script>
             const add = (a, b) => a + b;
-            const range = (l) => {
-                let i = -1;
-                let res = [];
-                while (++i < l) {
-                    // log(i, 'range');
-                    res.push(i);
-                }
-                return res;
-            };
+            // const range = (l) => {
+            //     let i = -1;
+            //     let res = [];
+            //     while (++i < l) {
+            //         // log(i, 'range');
+            //         res.push(i);
+            //     }
+            //     return res;
+            // };
 
             // 실행됐을때 이미 값이 평가되어 있음
             // array를 iterator로 만든 후 해당 iterator를 순회
@@ -30,14 +30,14 @@
 
         ## 느긋한 L.range
         <script>
-            const L = {};
-            L.range = function* (l) {
-                let i = -1;
-                while (++i < l) {
-                    // log(i, 'L.range');
-                    yield i;
-                }
-            };
+            // const L = {};
+            // L.range = function* (l) {
+            //     let i = -1;
+            //     while (++i < l) {
+            //         // log(i, 'L.range');
+            //         yield i;
+            //     }
+            // };
 
             // 평가가 되지 않고 있다가, reduce 내부에서 지연평가
             // 이미 iterator이므로 iterator로 변환하는 과정을 거치지 않는다
@@ -60,16 +60,16 @@
 
         ## take
         <script>
-            const take = curry((l, iter) => {
-                let res = [];
-                for (const a of iter) {
-                    res.push(a);
-                    if (res.length == l) {
-                        return res;
-                    }
-                }
-                return res;
-            });
+            // const take = curry((l, iter) => {
+            //     let res = [];
+            //     for (const a of iter) {
+            //         res.push(a);
+            //         if (res.length == l) {
+            //             return res;
+            //         }
+            //     }
+            //     return res;
+            // });
 
             console.time('');
             // 100000개의 원소가 있는 Array를 만든 후 5개를 뽑아온다
@@ -93,11 +93,11 @@
 
         ### L.map
         <script>
-            L.map = function* (f, iter) {
-                for (const a of iter) {
-                    yield f(a);
-                }
-            };
+            // L.map = function* (f, iter) {
+            //     for (const a of iter) {
+            //         yield f(a);
+            //     }
+            // };
             var it = L.map((a) => a + 10, [1, 2, 3]);
             // log(it.next());
             // log(it.next());
@@ -106,13 +106,13 @@
 
         ### L.filter
         <script>
-            L.filter = function* (f, iter) {
-                for (const a of iter) {
-                    if (f(a)) {
-                        yield a;
-                    }
-                }
-            };
+            // L.filter = function* (f, iter) {
+            //     for (const a of iter) {
+            //         if (f(a)) {
+            //             yield a;
+            //         }
+            //     }
+            // };
 
             var it2 = L.filter((a) => a % 2, [1, 2, 3, 4]);
             log(it2.next());
