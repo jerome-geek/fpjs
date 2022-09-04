@@ -46,7 +46,7 @@
     5. [x] L.map
     6. [x] L.filter
     7. [x] range, map, filter, take, reduce 중첩 사용
-    8. [ ] L.range, L.map, L.filter, take의 평가 순서
+    8. [x] L.range, L.map, L.filter, take의 평가 순서
     9. [ ] 엄격한 계산과 느긋한 계산의 효율성 비교
     10. [ ] map, filter 계열 함수들이 가지는 결합 법칙
     11. [ ] ES6의 기본 규약을 통해 구현하는 지연 평가의 장점

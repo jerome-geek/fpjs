@@ -8,7 +8,9 @@
         <script src="./lib/fx.js"></script>
     </head>
     <body>
+        <!-- prettier-ignore -->
         ### range, map, filter ,take, reduce 중첩 사용
+        - range -> map -> filter -> take 순으로 함수가 즉시 평가됨
         <script>
             go(
                 range(10),
@@ -17,17 +19,35 @@
                 take(2),
                 log,
             );
+
+            /**
+             * [0 ,1, 2, 3, 4, 5, 6, 7, 8, ...]
+             * [10, 11, 12, ...]
+             * [11, 13, 15, ...]
+             * [11, 13]
+             **/
         </script>
 
+        <!-- prettier-ignore -->
         ### L.range, L.map, L.filter, take, reduce 중첩 사용
+        - 위의 코드와는 다르게 take 함수가 제일 처음 실행되고, take함수의 iter에는 iterator가 들어옴 (아직 평가 X)
+        - take -> filter -> map -> range (iter의 next 함수가 실행되어야 평가가 시작됨)
         <script>
-            // go(
-            //     L.range(10),
-            //     L.map((n) => n + 10),
-            //     // L.filter((n) => n % 2),
-            //     take(2),
-            //     log,
-            // );
+            go(
+                L.range(10),
+                L.map((n) => n + 10),
+                L.filter((n) => n % 2),
+                take(2),
+                log,
+            );
+
+            /**
+             * 0        1       ...
+             * 10       11      ...
+             * false    true    ...
+             *
+             * -> [11, 13]
+             **/
         </script>
     </body>
 </html>
