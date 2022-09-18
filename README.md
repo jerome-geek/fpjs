@@ -55,7 +55,7 @@
     2. [x] queryStr 함수 만들기
     3. [x] Array.prototype.join보다 다형성이 높은 join함수
     4. [x] take, find
-    5. [ ] L.map, L.filter로 map과 filter 만들기
+    5. [x] L.map, L.filter로 map과 filter 만들기
     6. [ ] L.flatten, flatten
     7. [ ] yield\*, L.deepFlat
     8. [ ] 2차원 배열 다루기
