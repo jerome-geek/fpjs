@@ -52,7 +52,7 @@
     11. [x] ES6의 기본 규약을 통해 구현하는 지연 평가의 장점
 7. 지연성2
     1. [x] 결과를 만드는 함수 reduce, take
-    2. [ ] queryStr 함수 만들기
+    2. [x] queryStr 함수 만들기
     3. [ ] Array.prototype.join보다 다형성이 높은 join함수
     4. [ ] take, find
     5. [ ] L.map, L.filter로 map과 filter 만들기

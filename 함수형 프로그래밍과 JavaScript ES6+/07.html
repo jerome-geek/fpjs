@@ -12,7 +12,15 @@
         ## 결과를 만드는 함수 reduce, take
 
         ### reduce
-        <script></script>
+        <script>
+            const queryStr = pipe(
+                Object.entries,
+                map(([k, v]) => `${k}=${v}`),
+                reduce((a, b) => `${a}&${b}`),
+            );
+
+            log(queryStr({ limit: 10, offset: 10, type: 'notice' }));
+        </script>
 
         ### take, find
         <script></script>
