@@ -13,13 +13,40 @@
 
         ### reduce
         <script>
+            L.entries = function* (obj) {
+                for (const k in obj) {
+                    yield [k, obj[k]];
+                }
+            };
+
+            const join = curry((sep = ',', iter) =>
+                reduce((a, b) => `${a}${sep}${b}`, iter),
+            );
+
+            // join은 이터러블 프로토콜을 따르고 있으므로
+            // join 함수에 가기 전에 만들어 진 값들을 지연할 수 있다(reduce는 내부적으로 next함수를 통해 값을 꺼내기 때문에)
+            // map -> L.map을 써도 상관없다 (이터러블 객체를 사용하면 지연평가 가능)
             const queryStr = pipe(
-                Object.entries,
-                map(([k, v]) => `${k}=${v}`),
-                reduce((a, b) => `${a}&${b}`),
+                // Object.entries,
+                L.entries,
+                // map(([k, v]) => `${k}=${v}`),
+                L.map(([k, v]) => `${k}=${v}`),
+                join('&'),
             );
 
             log(queryStr({ limit: 10, offset: 10, type: 'notice' }));
+
+            function* a() {
+                yield 10;
+                yield 11;
+                yield 12;
+                yield 13;
+            }
+            // Uncaught TypeError: a(...).join is not a function
+            // log(a().join(','));
+
+            // 10 - 11 - 12 - 13
+            log(join(' - ', a()));
         </script>
 
         ### take, find

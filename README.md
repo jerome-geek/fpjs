@@ -53,7 +53,7 @@
 7. 지연성2
     1. [x] 결과를 만드는 함수 reduce, take
     2. [x] queryStr 함수 만들기
-    3. [ ] Array.prototype.join보다 다형성이 높은 join함수
+    3. [x] Array.prototype.join보다 다형성이 높은 join함수
     4. [ ] take, find
     5. [ ] L.map, L.filter로 map과 filter 만들기
     6. [ ] L.flatten, flatten
