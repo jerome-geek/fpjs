@@ -56,7 +56,7 @@
     3. [x] Array.prototype.join보다 다형성이 높은 join함수
     4. [x] take, find
     5. [x] L.map, L.filter로 map과 filter 만들기
-    6. [ ] L.flatten, flatten
+    6. [x] L.flatten, flatten
     7. [ ] yield\*, L.deepFlat
     8. [ ] 2차원 배열 다루기
     9. [ ] 이터러블 중심 프로그래밍 실무 코드
@@ -69,23 +69,23 @@
     6. [ ] go, pipe, reduce에서 비동기 제어
     7. [ ] promise.then의 중요한 규칙
 9. 비동기: 동시성 프로그래밍 2
-10. [ ] 지연평가 + Promise - L.map, map, take
-11. [ ] Kleisli Composition - L.filter, filter, nop, take
-12. [ ] reduce에서 nop 지원
-13. [ ] 지연평가 + Promise의 효율성
-14. [ ] 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take [1]
-15. [ ] 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take [2]
-16. [ ] 즉시 병렬적으로 평가하기 - C.map, C.filter
-17. [ ] 즉시, 지연, Promise, 병렬적 조합하기
-18. [ ] 코드 간단하게 정리
-19. [ ] Node.js에서 SQL 병렬 평가로 얻은 효율
-20. 비동기: 동시성 프로그래밍 3
-21. [ ] async:await
-22. [ ] 이제 비동기는 async:await로 제어할 수 있는데 왜 파이프라인이 필요한지?
-23. [ ] [QnA] Array.prototype.map이 있는데 FxJS의 map 함수가 필요한지?
-24. [ ] [QnA] async:await와 파이프라인을 같이 사용하기도 하는지?
-25. [ ] [QnA] 동기 상황에서 에러 핸들링은 어떻게 해야하는지?
-26. [ ] [QnA] 비동기 상황에서 에러 핸들링은 어떻게 해야하는지?
-27. [ ] [QnA] 동기 / 비ㅏ동기 에러 핸들링에서의 파이프라인의 이점은?
+    1. [ ] 지연평가 + Promise - L.map, map, take
+    2. [ ] Kleisli Composition - L.filter, filter, nop, take
+    3. [ ] reduce에서 nop 지원
+    4. [ ] 지연평가 + Promise의 효율성
+    5. [ ] 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take [1]
+    6. [ ] 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take [2]
+    7. [ ] 즉시 병렬적으로 평가하기 - C.map, C.filter
+    8. [ ] 즉시, 지연, Promise, 병렬적 조합하기
+    9. [ ] 코드 간단하게 정리
+    10. [ ] Node.js에서 SQL 병렬 평가로 얻은 효율
+10. 비동기: 동시성 프로그래밍 3
+    1. [ ] async:await
+    2. [ ] 이제 비동기는 async:await로 제어할 수 있는데 왜 파이프라인이 필요한지?
+    3. [ ] [QnA] Array.prototype.map이 있는데 FxJS의 map 함수가 필요한지?
+    4. [ ] [QnA] async:await와 파이프라인을 같이 사용하기도 하는지?
+    5. [ ] [QnA] 동기 상황에서 에러 핸들링은 어떻게 해야하는지?
+    6. [ ] [QnA] 비동기 상황에서 에러 핸들링은 어떻게 해야하는지?
+    7. [ ] [QnA] 동기 / 비ㅏ동기 에러 핸들링에서의 파이프라인의 이점은?
 
 ## 함수형 프로그래밍과 JavaScript ES6+ 응용편
