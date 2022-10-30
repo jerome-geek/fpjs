@@ -58,8 +58,9 @@
     5. [x] L.map, L.filter로 map과 filter 만들기
     6. [x] L.flatten, flatten
     7. [x] yield\*, L.deepFlat
-    8. [ ] 2차원 배열 다루기
-    9. [ ] 이터러블 중심 프로그래밍 실무 코드
+    8. [x] L.flatMap, flatMap
+    9. [ ] 2차원 배열 다루기
+    10. [ ] 이터러블 중심 프로그래밍 실무 코드
 8. 비동기: 동시성 프로그래밍 1
     1. [ ] callback과 Promise
     2. [ ] 비동기를 값으로 만드는 Promise
