@@ -57,7 +57,7 @@
     4. [x] take, find
     5. [x] L.map, L.filter로 map과 filter 만들기
     6. [x] L.flatten, flatten
-    7. [ ] yield\*, L.deepFlat
+    7. [x] yield\*, L.deepFlat
     8. [ ] 2차원 배열 다루기
     9. [ ] 이터러블 중심 프로그래밍 실무 코드
 8. 비동기: 동시성 프로그래밍 1
