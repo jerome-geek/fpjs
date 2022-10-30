@@ -86,10 +86,10 @@
                 for (const a of iter) {
                     if (isIterable(a)) {
                         // yield *iterable은 for (const val of iterable) yield val; 과 같습니다.
-                        // for (const b of a) {
-                        //     yield b;
-                        // }
-                        yield* a;
+                        // 아래의 for...of는 yield* a; 와 같음
+                        for (const b of a) {
+                            yield b;
+                        }
                     } else {
                         yield a;
                     }
@@ -211,6 +211,25 @@
                         map((a) => a + 1, [1, 2, 3]),
                     ),
                 ),
+            );
+        </script>
+
+        ## 2차원 배열 다루기
+        <script>
+            const arr = [
+                [1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [9, 10],
+            ];
+
+            go(
+                arr,
+                L.flatten,
+                L.filter((a) => a % 2),
+                take(4),
+                reduce((a, b) => a + b),
+                log,
             );
         </script>
     </body>
