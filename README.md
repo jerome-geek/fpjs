@@ -62,7 +62,7 @@
     9. [x] 2차원 배열 다루기
     10. [x] 이터러블 중심 프로그래밍 실무 코드
 8. 비동기: 동시성 프로그래밍 1
-    1. [ ] callback과 Promise
+    1. [x] callback과 Promise
     2. [ ] 비동기를 값으로 만드는 Promise
     3. [ ] 값으로서의 Promise 활용
     4. [ ] 합성 관점에서의 Promise와 모나드
