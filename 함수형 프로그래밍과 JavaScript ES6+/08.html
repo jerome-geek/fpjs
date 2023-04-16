@@ -24,16 +24,16 @@
             }
 
             // 비동기 상황을 코드로만 다룸
-            var a = add10(5, (res) => {
-                add10(res, (res) => {
-                    add10(res, (res) => {
-                        log(res);
-                    });
-                });
-            });
+            // var a = add10(5, (res) => {
+            //     add10(res, (res) => {
+            //         add10(res, (res) => {
+            //             log(res);
+            //         });
+            //     });
+            // });
 
             // undefined, 어떤 상황이 일어나는지 알 수 없음
-            log(a);
+            // log(a);
 
             // add10과 다르게 return하는 부분이 존재함
             function add20(a) {
@@ -43,14 +43,33 @@
             }
 
             // 비동기 상황에 대한 값을 만들어서 return
-            var b = add20(5).then(add20).then(add20).then(log);
+            // var b = add20(5).then(add20).then(add20).then(log);
 
             // Promise, 코드를 평가했을때 즉시 Promise가 리턴되므로 원하는 행위를 할 수 있음
-            log(b);
+            // log(b);
         </script>
 
         ## 일급 활용
-        <script></script>
+        <script>
+            console.log('## 일급 활용');
+            const delay100 = (a) =>
+                new Promise((resolve) => setTimeout(() => resolve(a), 100));
+
+            const go1 = (a, f) => (a instanceof Promise ? a.then(f) : f(a));
+            const add5 = (a) => a + 5;
+
+            // var r = go1(10, add5);
+            // go1(go1(n1, add5), log);
+            // log(r);
+            const n1 = 10;
+            log(go1(go1(n1, add5), log)); // undefined
+
+            // var r2 = go1(delay100(10), add5);
+            // go1(go1(n2, add5), log);
+            // r2.then(log);
+            const n2 = delay100(10);
+            log(go1(go1(n2, add5), log)); // Promise가 리턴되므로 지속적으로 어떤 일들을 연결해나갈 수 있음
+        </script>
 
         ## Composition
         <script></script>
