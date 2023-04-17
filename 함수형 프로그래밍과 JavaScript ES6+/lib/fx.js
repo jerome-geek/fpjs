@@ -89,6 +89,10 @@ const take = curry((l, iter) => {
     return res;
 });
 
+const find = curry((f, iter) =>
+    go(iter, L.filter(f), take(1), ([a]) => a),
+);
+
 const L = {};
 
 L.range = function* (l) {

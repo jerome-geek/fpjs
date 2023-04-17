@@ -103,13 +103,43 @@
                 .then(f)
                 .then((r) => log(r));
 
-            new Promise((resolve) => setTimeout(() => reslove(2), 100))
+            new Promise((resolve) => setTimeout(() => resolve(2), 100))
                 .then(g)
                 .then(f)
                 .then((r) => log(r));
         </script>
 
         ## Kleisli Composition
-        <script></script>
+        <script>
+            console.log('## Kleisli Composition');
+            /**
+             * Kleisli Composition
+             * - 오류가 있을 수 있는 상황에서 함수의 합성을 안전하게 하기 위한 규칙
+             */
+
+            // f . g
+            // f(g(x)) = f(g(x))
+            // f(g(x)) = g(x), g에서 에러가 날 경우 양 변이 같은 결과가 되도록 합성하는 방식
+
+            var users = [
+                { id: 1, name: 'aa' },
+                { id: 2, name: 'bb' },
+                { id: 3, name: 'cc' },
+            ];
+
+            const getUserById = (id) =>
+                find((u) => u.id === id, users) || Promise.reject('없어요!');
+
+            const f2 = ({ name }) => name;
+            const g2 = getUserById;
+
+            // const fg = (id) => f2(g2(id));
+            const fg = (id) =>
+                Promise.resolve(id)
+                    .then(g2)
+                    .then(f2)
+                    .catch((a) => a);
+            fg(2).then(log);
+        </script>
     </body>
 </html>
