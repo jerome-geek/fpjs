@@ -30,6 +30,10 @@ const curry =
 //     return res;
 // });
 
+const isIterable = (a) => a && a[Symbol.iterator];
+
+const go1 = (a, f) => (a instanceof Promise ? a.then(f) : f(a));
+
 const reduce = curry((f, acc, iter) => {
     // iter가 없는 경우 acc가 iter
     if (!iter) {
@@ -39,12 +43,17 @@ const reduce = curry((f, acc, iter) => {
         iter = iter[Symbol.iterator]();
     }
 
-    let cur;
-    while (!(cur = iter.next()).done) {
-        const a = cur.value;
-        acc = f(acc, a);
-    }
-    return acc;
+    return go1(acc, function recur(acc) {
+        let cur;
+        while (!(cur = iter.next()).done) {
+            const a = cur.value;
+            acc = f(acc, a);
+            if (acc instanceof Promise) {
+                return acc.then(recur);
+            }
+        }
+        return acc;
+    });
 });
 
 /**
@@ -89,9 +98,7 @@ const take = curry((l, iter) => {
     return res;
 });
 
-const find = curry((f, iter) =>
-    go(iter, L.filter(f), take(1), ([a]) => a),
-);
+const find = curry((f, iter) => go(iter, L.filter(f), take(1), ([a]) => a));
 
 const L = {};
 

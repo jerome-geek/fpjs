@@ -67,7 +67,7 @@
     3. [x] 값으로서의 Promise 활용
     4. [x] 합성 관점에서의 Promise와 모나드
     5. [x] Kleisli Composition 관점에서의 Promise
-    6. [ ] go, pipe, reduce에서 비동기 제어
+    6. [x] go, pipe, reduce에서 비동기 제어
     7. [ ] promise.then의 중요한 규칙
 9. 비동기: 동시성 프로그래밍 2
     1. [ ] 지연평가 + Promise - L.map, map, take
