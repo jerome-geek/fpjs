@@ -21,5 +21,21 @@
                 log,
             ).catch((a) => console.log(a));
         </script>
+
+        ## Promise.then의 중요한 규칙 - Promise.then을 통해서 꺼낸 값이 반드시
+        Promise가 아님
+        <script>
+            // Promise가 중첩되어 있어도 then으로 결과를 볼 수 있다
+            Promise.resolve(Promise.resolve(Promise.resolve(1))).then(log);
+
+            // 아무리 깊이 있어도 then 한 번으로 결과값을 꺼낼 수 있다
+            Promise.resolve(Promise.resolve(1)).then(function (a) {
+                log(a);
+            });
+
+            new Promise((resolve) =>
+                resolve(new Promise((resolve) => resolve(1))),
+            ).then(log);
+        </script>
     </body>
 </html>
