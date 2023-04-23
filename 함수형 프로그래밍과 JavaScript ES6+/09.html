@@ -76,6 +76,16 @@
         </script>
 
         ## reduce에서 nop 지원
-        <script></script>
+        <script>
+            log('====== ## reduce에서 nop 지원 ======');
+            const add = (a, b) => a + b;
+            go(
+                [1, 2, 3, 4, 5],
+                L.map((a) => Promise.resolve(a * a)),
+                L.filter((a) => Promise.resolve(a % 2)),
+                reduce(add),
+                log,
+            );
+        </script>
     </body>
 </html>
