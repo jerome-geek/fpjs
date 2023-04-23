@@ -70,7 +70,7 @@
     6. [x] go, pipe, reduce에서 비동기 제어
     7. [x] promise.then의 중요한 규칙
 9. 비동기: 동시성 프로그래밍 2
-    1. [ ] 지연평가 + Promise - L.map, map, take
+    1. [x] 지연평가 + Promise - L.map, map, take
     2. [ ] Kleisli Composition - L.filter, filter, nop, take
     3. [ ] reduce에서 nop 지원
     4. [ ] 지연평가 + Promise의 효율성

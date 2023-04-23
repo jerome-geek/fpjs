@@ -87,15 +87,23 @@ const range = (l) => {
 const take = curry((l, iter) => {
     let res = [];
     iter = iter[Symbol.iterator]();
-    let cur;
-    while (!(cur = iter.next()).done) {
-        const a = cur.value;
-        res.push(a);
-        if (res.length == l) {
-            return res;
+
+    return (function recur() {
+        let cur;
+        while (!(cur = iter.next()).done) {
+            const a = cur.value;
+            if (a instanceof Promise) {
+                return a.then((a) =>
+                    (res.push(a), res).length == l ? res : recur(),
+                );
+            }
+            res.push(a);
+            if (res.length == l) {
+                return res;
+            }
         }
-    }
-    return res;
+        return res;
+    })();
 });
 
 const find = curry((f, iter) => go(iter, L.filter(f), take(1), ([a]) => a));
@@ -118,7 +126,7 @@ L.map = curry(function* (f, iter) {
     //     yield f(a);
     // }
     for (const a of iter) {
-        yield f(a);
+        yield go1(a, f);
     }
 });
 

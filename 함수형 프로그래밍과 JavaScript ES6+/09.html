@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>09. 비동기: 동시성 프로그래밍 2</title>
+        <script src="./lib/fx.js"></script>
+    </head>
+    <body>
+        <!-- prettier-ignore -->
+        ## 지연평가 + Promise - L.map, map, take
+        <script>
+            go(
+                [2, 3, 4],
+                L.map((a) => Promise.resolve(a + 10)),
+                take(2),
+                log,
+            );
+
+            go(
+                [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)],
+                L.map((a) => a + 10),
+                take(2),
+                log,
+            );
+
+            go(
+                [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)],
+                L.map((a) => Promise.resolve(a + 10)),
+                take(2),
+                log,
+            );
+
+            /** map 함수는 L.map과 takeAll로 이루어져 있어 map으로 변환 가능 */
+            go(
+                [2, 3, 4],
+                map((a) => Promise.resolve(a + 10)),
+                log,
+            );
+
+            go(
+                [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)],
+                map((a) => a + 10),
+                log,
+            );
+
+            go(
+                [Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)],
+                map((a) => Promise.resolve(a + 10)),
+                log,
+            );
+        </script>
+
+        ## Kleisli Composition - L.filter, nop, take
+        <script></script>
+
+        ## reduce에서 nop 지원
+        <script></script>
+    </body>
+</html>
