@@ -28,6 +28,12 @@
 
             C.take = curry((l, iter) => take(l, catchNoop([...iter])));
 
+            C.takeAll = C.take(Infinity);
+
+            C.map = curry(pipe(L.map, C.takeAll));
+
+            C.filter = curry(pipe(L.filter, C.takeAll));
+
             const add = (a, b) => a + b;
 
             const delay1000 = (a) =>
@@ -38,20 +44,23 @@
                     }, 1000);
                 });
 
-            console.time('');
-            go(
-                [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                L.map((a) => delay1000(a * a)),
-                L.filter((a) => delay1000(a % 2)),
-                L.map((a) => delay1000(a * a)),
-                C.take(2),
-                C.reduce(add),
-                log,
-                (_) => console.timeEnd(''),
-            );
+            // console.time('');
+            // go(
+            //     [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            //     L.map((a) => delay1000(a * a)),
+            //     L.filter((a) => delay1000(a % 2)),
+            //     L.map((a) => delay1000(a * a)),
+            //     C.take(2),
+            //     C.reduce(add),
+            //     log,
+            //     (_) => console.timeEnd(''),
+            // );
         </script>
 
         ## 즉시 병렬적으로 평가하기 - C.map, C.filter
-        <script></script>
+        <script>
+            C.map((a) => delay1000(a * a), [1, 2, 3, 4]).then(log);
+            C.filter(a => delay1000(a%2), [1,2,3,4]).then(log)
+        </script>
     </body>
 </html>
