@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            09-05. 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take ~
+        </title>
+        <script src="./lib/fx.js"></script>
+    </head>
+    <body>
+        <!-- prettier-ignore -->
+        ## 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take
+        <script>
+            const C = {};
+            C.reduce = curry((f, acc, iter) =>
+                iter ? reduce(f, acc, [...iter]) : reduce(f, [...acc]),
+            );
+
+            const add = (a, b) => a + b;
+
+            const delay1000 = (a) =>
+                new Promise((resolve) => {
+                    console.log('hi~');
+                    setTimeout(() => {
+                        resolve(a);
+                    }, 1000);
+                });
+
+            console.time('');
+            go(
+                [1, 2, 3, 4, 5],
+                L.map((a) => delay1000(a * a)),
+                L.filter((a) => a % 2),
+                C.reduce(add),
+                log,
+                (_) => console.timeEnd(''),
+            );
+        </script>
+
+        ## 즉시 병렬적으로 평가하기 - C.map, C.filter
+        <script></script>
+    </body>
+</html>
