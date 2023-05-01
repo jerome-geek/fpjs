@@ -212,5 +212,34 @@
                     log('에러 핸들링 하겠다.');
                 });
         </script>
+
+        ## QnA. 동기 / 비동기 에러 핸들링에서의 파이프라인의 이점은?
+        <script>
+            async function f9(list) {
+                try {
+                    return await go(
+                        list,
+                        // map(
+                        //     (a) =>
+                        //         new Promise((resolve) => {
+                        //             log(a);
+                        //             resolve(JSON.parse(a));
+                        //         }),
+                        // ),
+                        map((a) => JSON.parse(a)),
+                        filter((a) => a % 2),
+                        take(2),
+                    );
+                } catch (error) {
+                    log('여기로 잘 옵니다.');
+                    return [];
+                }
+            }
+            f9(['0', '1', '2', '3', '4', '{'])
+                .then((a) => log(a, 'f9'))
+                .catch((e) => {
+                    log('에러 핸들링 하겠다.');
+                });
+        </script>
     </body>
 </html>
