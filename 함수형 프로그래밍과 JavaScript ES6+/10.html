@@ -101,5 +101,48 @@
                 log(await f4());
             };
         </script>
+
+        <!-- prettier-ignore -->
+        ## QnA. 이제 비동기는 async:await로 제어할 수 있는데 왜 파이프라인이
+        필요한지?
+        - 둘이 해결하려고하는 문제가 다르다
+            - 파이프라인 / 체이닝 : 명령형 프로그래밍을 하지 않고 더 안전하게 함수 합성을 하고 싶을때 사용
+            - async / await : 비동기 상황을 동기적인 문장으로 풀어서 코딩을 하고 싶을때 사용
+        <script>
+            function f5(list) {
+                return go(
+                    list,
+                    L.map((a) => delayI(a * a)),
+                    L.filter((a) => delayI(a % 2)),
+                    L.map((a) => delayI(a + 1)),
+                    C.take(2),
+                    reduce((a, b) => delayI(a + b)),
+                );
+            }
+            go(f5([1, 2, 3, 4, 5, 6, 7, 8]), (a) => log(a, 'f5'));
+
+            async function f6(list) {
+                let temp = [];
+
+                for (const a of list) {
+                    const b = await delayI(a * a);
+                    if (await delayI(b % 2)) {
+                        const c = await delayI(b + 1);
+                        log(c);
+                        temp.push(c);
+                        if (temp.length === 2) {
+                            break;
+                        }
+                    }
+                }
+                let res = temp[0],
+                    i = 0;
+                while (++i < temp.length) {
+                    res = await delayI(res + temp[i]);
+                }
+                return res;
+            }
+            go(f6([1, 2, 3, 4, 5, 6, 7, 8]), (a) => log(a, 'f6'));
+        </script>
     </body>
 </html>
