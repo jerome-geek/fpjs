@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>비동기: 동시성 프로그래밍 3</title>
+        <script src="./lib/fx.js"></script>
+    </head>
+    <body>
+        <!-- prettier-ignore -->
+        ## async/await
+        <script>
+            function delay(time) {
+                return new Promise((resolve) =>
+                    setTimeout(() => {
+                        resolve();
+                    }, time),
+                );
+            }
+
+            async function delayIdentity(a) {
+                await delay(500);
+                return a;
+            }
+
+            // async 키워드가 붙은 함수는 무조건 Promise를 리턴한다
+            async function f1() {
+                const a = await delayIdentity(10);
+                const b = await delayIdentity(5);
+                // const a = 10;
+                // const b = 5;
+
+                return a + b;
+            }
+
+            // const pa = Promise.resolve(10);
+            const pa = f1();
+
+            (async () => {
+                log(await pa);
+                log(await pa);
+                log(await pa);
+            })();
+
+            // f1();
+            // f1().then(log);
+            // go(f1(), log);
+            // (async () => {
+            //     log(await f1());
+            // })();
+        </script>
+    </body>
+</html>
