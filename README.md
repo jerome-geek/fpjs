@@ -82,8 +82,8 @@
     10. [x] Node.js에서 SQL 병렬 평가로 얻은 효율
 10. 비동기: 동시성 프로그래밍 3
     1. [x] async:await
-    2. [ ] 이제 비동기는 async:await로 제어할 수 있는데 왜 파이프라인이 필요한지?
-    3. [ ] [QnA] Array.prototype.map이 있는데 FxJS의 map 함수가 필요한지?
+    2. [x] [QnA] Array.prototype.map이 있는데 FxJS의 map 함수가 필요한지?
+    3. [ ] [QnA] 이제 비동기는 async:await로 제어할 수 있는데 왜 파이프라인이 필요한지?
     4. [ ] [QnA] async:await와 파이프라인을 같이 사용하기도 하는지?
     5. [ ] [QnA] 동기 상황에서 에러 핸들링은 어떻게 해야하는지?
     6. [ ] [QnA] 비동기 상황에서 에러 핸들링은 어떻게 해야하는지?
