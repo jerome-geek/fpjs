@@ -4,125 +4,41 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>00. 이터러블 프로그래밍 혹은 리스트 프로세싱(Lisp)</title>
+        <title>01. 명령형 습관 지우기 - 만능 reduce? No!</title>
         <script src="./fx.js"></script>
     </head>
     <body>
         <!-- prettier-ignore -->
-        # 함수형 프그래밍과 JavaScript ES6+ 응용편
-
-        1. 홀수 n개 더하기
+        1. reduce + 복잡한 함수 + acc보다 map + 간단한 함수 + reduce
         <script>
-            // 명령형 스타일
-            function f1(limit, list) {
-                let acc = 0;
-                for (const a of list) {
-                    if (a % 2) {
-                        const b = a * a;
-                        acc += b;
-                        if (--limit == 0) {
-                            break;
-                        }
-                    }
-                }
-                console.log(acc);
-            }
+            const users = [
+                { name: 'AA', age: 35 },
+                { name: 'BB', age: 26 },
+                { name: 'CC', age: 28 },
+                { name: 'CC', age: 34 },
+                { name: 'EE', age: 23 },
+            ];
 
-            f1(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        </script>
+            // reduce의 보조함수에서 처리하기보다는 처리 후 reduce를 하는게 더 보기 쉽다
+            console.log(_.reduce((total, u) => total + u.age, 0, users));
 
-        <!-- prettier-ignore -->
-        2. if를 filter로
-        3. 값 변화 후 변수 할당을 map으로
-        4. break를 take로
-        5. 축약 및 합산을 reduce로
-        <script>
-            // 선언형 스타일
             const add = (a, b) => a + b;
-            function f2(limit, list) {
-                // console.log(
-                //     _.reduce(
-                //         add,
-                //         L.take(
-                //             limit,
-                //             L.map(
-                //                 (a) => a * a,
-                //                 L.filter((a) => a % 2, list),
-                //             ),
-                //         ),
-                //     ),
-                // );
 
-                _.go(
-                    L.filter((a) => a % 2, list),
-                    L.map((a) => a * a),
-                    L.take(limit),
-                    _.reduce(add),
-                    console.log,
-                );
-            }
-
-            f2(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        </script>
-
-        <!-- prettier-ignore -->
-        6. while을 range로
-        7. 효과를 each로 구분
-        <script>
-            function f3(end) {
-                let i = 1;
-                while (i < end) {
-                    console.log(i);
-                    i += 2;
-                }
-            }
-            f3(10);
-
-            function f4(end) {
-                // 순수한 함수와 부수효과를 나타내주는 함수(each)로 구분
-                _.go(L.range(1, end, 2), _.each(console.log));
-            }
-            f4(10);
-        </script>
-
-        <!-- prettier-ignore -->
-        8. 추억의 별 그리기, 구구단
-        <script>
-            const join = (sep) => _.reduce((a, b) => `${a}${sep}${b}`);
-            _.go(
-                L.range(1, 6),
-                L.map(L.range),
-                L.map(L.map((_) => '*')),
-                L.map(join('')),
-                join('\n'),
-                console.log,
-            );
-
-            // _.go(
-            //     L.range(1, 6),
-            //     L.map((s) =>
-            //         _.go(
-            //             L.range(s),
-            //             L.map((_) => '*'),
-            //             _.reduce((a, b) => `${a}${b}`),
-            //         ),
-            //     ),
-            //     _.reduce((a, b) => `${a}\n${b}`),
-            //     console.log,
-            // );
-
-            _.go(
-                L.range(2, 10),
-                L.map((a) =>
-                    _.go(
-                        L.range(1, 10),
-                        L.map((b) => `${a}x${b}=${a * b}`),
-                        join('\n'),
-                    ),
+            // map으로 하나의 자료형으로 남아있는 상태로 바꾼 후 간단한 함수와 reduce의 조합으로 사용하면 간결하고 재사용성이 높다
+            console.log(
+                _.reduce(
+                    add,
+                    L.map((u) => u.age, users),
                 ),
-                join('\n\n'),
-                console.log,
             );
+
+            const ages = L.map((u) => u.age);
+
+            console.log(_.reduce(add, ages(users)));
         </script>
+
+        <!-- prettier-ignore -->
+        2. reduce 하나 보다 map + filter + reduce
+        3. query, queryToObject
     </body>
 </html>
