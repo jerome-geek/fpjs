@@ -37,18 +37,29 @@
         4. break를 take로
         5. 축약 및 합산을 reduce로
         <script>
+            // 선언형 스타일
+            const add = (a, b) => a + b;
             function f2(limit, list) {
-                let acc = 0;
-                for (const a of L.take(
-                    limit,
-                    L.map(
-                        (a) => a * a,
-                        L.filter((a) => a % 2, list),
-                    ),
-                )) {
-                    acc += a;
-                }
-                console.log(acc);
+                // console.log(
+                //     _.reduce(
+                //         add,
+                //         L.take(
+                //             limit,
+                //             L.map(
+                //                 (a) => a * a,
+                //                 L.filter((a) => a % 2, list),
+                //             ),
+                //         ),
+                //     ),
+                // );
+
+                _.go(
+                    L.filter((a) => a % 2, list),
+                    L.map((a) => a * a),
+                    L.take(limit),
+                    _.reduce(add),
+                    console.log,
+                );
             }
 
             f2(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
