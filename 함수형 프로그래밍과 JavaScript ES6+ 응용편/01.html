@@ -39,9 +39,11 @@
         <script>
             function f2(limit, list) {
                 let acc = 0;
-                for (const a of L.filter((a) => a % 2, list)) {
-                    const b = a * a;
-                    acc += b;
+                for (const a of L.map(
+                    (a) => a * a,
+                    L.filter((a) => a % 2, list),
+                )) {
+                    acc += a;
                     if (--limit == 0) {
                         break;
                     }
