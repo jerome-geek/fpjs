@@ -96,7 +96,7 @@
     2. [x] 홀수 n개 더하기
     3. [x] if를 filter로
     4. [x] 값 변화 후 변수 할당을 map으로
-    5. [ ] break를 take로
+    5. [x] break를 take로
     6. [ ] 축약 및 합산을 reduce로
     7. [ ] while을 range로
     8. [ ] 효과를 each로 구분
