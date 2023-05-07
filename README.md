@@ -100,7 +100,7 @@
     6. [x] 축약 및 합산을 reduce로
     7. [x] while을 range로
     8. [x] 효과를 each로 구분
-    9. [ ] 추억의 별 그리기
+    9. [x] 추억의 별 그리기
     10. [ ] 추억의 구구단
 1. 명령형 습관 지우기 - 만능 reduce? No!
     1. [ ] reduce + 복잡한 함수 + acc보다 map + 간단한 함수 + reduce
