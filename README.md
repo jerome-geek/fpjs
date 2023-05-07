@@ -98,7 +98,7 @@
     4. [x] 값 변화 후 변수 할당을 map으로
     5. [x] break를 take로
     6. [x] 축약 및 합산을 reduce로
-    7. [ ] while을 range로
+    7. [x] while을 range로
     8. [ ] 효과를 each로 구분
     9. [ ] 추억의 별 그리기
     10. [ ] 추억의 구구단

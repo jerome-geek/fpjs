@@ -68,6 +68,24 @@
         <!-- prettier-ignore -->
         6. while을 range로
         7. 효과를 each로 구분
+        <script>
+            function f3(end) {
+                let i = 1;
+                while (i < end) {
+                    console.log(i);
+                    i += 2;
+                }
+            }
+            f3(10);
+
+            function f4(end) {
+                _.each(console.log, L.range(1, end, 2));
+            }
+            f4(10);
+        </script>
+
+        <!-- prettier-ignore -->
+        8. 추억의 별 그리기, 구구단
         <script></script>
     </body>
 </html>
