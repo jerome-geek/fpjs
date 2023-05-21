@@ -107,7 +107,7 @@
     2. [x] reduce 하나 보다 map + filter + reduce
     3. [x] query1, query2
     4. [x] query3, query4
-    5. [ ] queryToObject
+    5. [x] queryToObject
 2. 안전한 합성에 대해
     1. [ ] map으로 합성하기
     2. [ ] find대신 L.filter써보기
