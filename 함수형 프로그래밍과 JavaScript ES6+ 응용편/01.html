@@ -107,6 +107,33 @@
                 }, '');
             }
             console.log(query2(obj1));
+
+            const join = _.curry((sep, iter) =>
+                _.reduce((a, b) => `${a}${sep}${b}`, iter),
+            );
+
+            const query3 = (obj) =>
+                join(
+                    '&',
+                    _.map(
+                        ([k, v]) => `${k}=${v}`,
+                        _.reject(
+                            ([_, v]) => v === undefined,
+                            Object.entries(obj),
+                        ),
+                    ),
+                );
+
+            console.log(query3(obj1));
+
+            const query4 = _.pipe(
+                Object.entries,
+                L.reject(([_, v]) => v === undefined),
+                L.map(join('=')),
+                join('&'),
+            );
+
+            console.log(query4(obj1));
         </script>
     </body>
 </html>
