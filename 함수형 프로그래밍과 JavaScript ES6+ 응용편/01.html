@@ -35,10 +35,42 @@
             const ages = L.map((u) => u.age);
 
             console.log(_.reduce(add, ages(users)));
+            console.clear();
         </script>
 
         <!-- prettier-ignore -->
         2. reduce 하나 보다 map + filter + reduce
+        <script>
+            console.log(
+                _.reduce(
+                    (total, u) => (u.age >= 30 ? total : total + u.age),
+                    0,
+                    users,
+                ),
+            );
+
+            console.log(
+                _.reduce(
+                    add,
+                    L.map(
+                        (u) => u.age,
+                        L.filter((u) => u.age < 30, users),
+                    ),
+                ),
+            );
+
+            console.log(
+                _.reduce(
+                    add,
+                    L.filter(
+                        (n) => n < 30,
+                        L.map((u) => u.age, users),
+                    ),
+                ),
+            );
+        </script>
+
+        <!-- prettier-ignore -->
         3. query, queryToObject
     </body>
 </html>
