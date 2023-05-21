@@ -105,7 +105,7 @@
 1. 명령형 습관 지우기 - 만능 reduce? No!
     1. [x] reduce + 복잡한 함수 + acc보다 map + 간단한 함수 + reduce
     2. [x] reduce 하나 보다 map + filter + reduce
-    3. [ ] query1, query2
+    3. [x] query1, query2
     4. [ ] query3, query4
     5. [ ] queryToObject
 2. 안전한 합성에 대해
