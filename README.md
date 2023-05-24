@@ -109,7 +109,7 @@
     4. [x] query3, query4
     5. [x] queryToObject
 2. 안전한 합성에 대해
-    1. [ ] map으로 합성하기
+    1. [x] map으로 합성하기
     2. [ ] find대신 L.filter써보기
 3. 객체를 이터러블 프로그래밍으로 다루기
     1. [ ] 들어가며
