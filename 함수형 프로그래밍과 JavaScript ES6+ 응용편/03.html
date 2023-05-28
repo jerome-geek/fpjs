@@ -64,6 +64,17 @@
 
         <!-- prettier-ignore -->
         3. keys
+        <script>
+            L.entries = function* (obj) {
+                for (const k in obj) {
+                    yield k;
+                }
+            };
+
+            _.go(obj1, L.keys, _.each(console.log));
+        </script>
+
+        <!-- prettier-ignore -->
         4. 어떠한 값이든 이터러블 프로그래밍으로 다루기
         5. object
         6. mapObject

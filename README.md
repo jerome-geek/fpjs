@@ -115,7 +115,7 @@
     1. [x] 들어가며
     2. [x] values
     3. [x] entries
-    4. [ ] keys
+    4. [x] keys
     5. [ ] 어떠한 값이든 이터러블 프로그래밍으로 다루기
     6. [ ] object
     7. [ ] mapObject
