@@ -117,7 +117,7 @@
     3. [x] entries
     4. [x] keys
     5. [x] 어떠한 값이든 이터러블 프로그래밍으로 다루기
-    6. [ ] object
+    6. [x] object
     7. [ ] mapObject
     8. [ ] pick
     9. [ ] indexBy

@@ -65,7 +65,7 @@
         <!-- prettier-ignore -->
         3. keys
         <script>
-            L.entries = function* (obj) {
+            L.keys = function* (obj) {
                 for (const k in obj) {
                     yield k;
                 }
@@ -101,10 +101,41 @@
                 _.reduce((a, b) => a + b),
                 console.log,
             );
+            console.clear();
         </script>
 
         <!-- prettier-ignore -->
         5. object
+        <script>
+            const a = [
+                ['a', 1],
+                ['b', 2],
+                ['c', 3],
+            ];
+            const b = { a: 1, b: 2, c: 3 };
+
+            // const object = (entries) =>
+            //     _.go(
+            //         entries,
+            //         L.map(([k, v]) => ({ [k]: v })),
+            //         _.reduce(Object.assign),
+            //     );
+
+            // 이터러블 / 이터레이터 프로토콜만 따른다면 모든 값을 object로 만들 수 있는 다형성이 높은 함수
+            const object = (entries) =>
+                _.reduce((obj, [k, v]) => ((obj[k] = v), obj), {}, entries);
+
+            console.log(object(L.entries({ b: 2, c: 3 })));
+
+            let m = new Map();
+            m.set('a', 10);
+            m.set('b', 20);
+            m.set('c', 30);
+            // Map 자료구조는 iterable을 지원하고 있기 때문에 object 함수를 사용해서 Map -> Object가 가능하다
+            console.log(object(m));
+        </script>
+
+        <!-- prettier-ignore -->
         6. mapObject
         7. pick
         8. indexBy
