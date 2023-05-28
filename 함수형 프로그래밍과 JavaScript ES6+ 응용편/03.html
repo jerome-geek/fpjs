@@ -10,6 +10,7 @@
     <body>
         <!-- prettier-ignore -->
         ## 객체를 이터러블 프로그래밍으로 다루기
+        - 이터러블이 아닌 값을 이터러블화시키는 함수(L.values, L.entries)를 중간에 둠으로써 이후에 이터러블 프로그래밍을 할 수 있게 한다
         <script>
             const obj1 = {
                 a: 1,
@@ -26,7 +27,6 @@
 
             L.values = function* (obj) {
                 for (const k in obj) {
-                    console.log('🚀 ~ file: 03.html:29 ~ k:', k);
                     yield obj[k];
                 }
             };
@@ -36,14 +36,33 @@
                 L.values,
                 L.map((a) => a + 10),
                 L.take(2),
-
                 _.reduce((a, b) => a + b),
+                console.log,
+            );
+
+            console.clear();
+        </script>
+
+        <!-- prettier-ignore -->
+        2. entries
+        <script>
+            L.entries = function* (obj) {
+                for (const k in obj) {
+                    yield [k, obj[k]];
+                }
+            };
+
+            _.go(
+                obj1,
+                L.entries,
+                L.filter(([_, v]) => v % 2),
+                L.map(([k, v]) => ({ [k]: v })),
+                _.reduce(Object.assign),
                 console.log,
             );
         </script>
 
         <!-- prettier-ignore -->
-        2. entries
         3. keys
         4. 어떠한 값이든 이터러블 프로그래밍으로 다루기
         5. object
