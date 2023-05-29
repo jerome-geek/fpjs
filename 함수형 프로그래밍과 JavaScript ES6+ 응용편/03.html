@@ -133,10 +133,27 @@
             m.set('c', 30);
             // Map 자료구조는 iterable을 지원하고 있기 때문에 object 함수를 사용해서 Map -> Object가 가능하다
             console.log(object(m));
+            console.clear();
         </script>
 
         <!-- prettier-ignore -->
         6. mapObject
+        <script>
+            const mapObject = (f, obj) =>
+                _.go(
+                    obj,
+                    L.entries,
+                    _.map(([k, v]) => [k, f(v)]),
+                    object,
+                );
+
+            console.log(mapObject((a) => a + 10, { a: 1, b: 2, c: 3 }));
+            // [['a', 1], ['b', 2], ['c', 3]], 객체를 entries로 만들어서 iterable로 다룸
+            // [['a', 11], ['b', 12], ['c', 13]]
+            // { a: 11 }...
+            // { a: 11, b: 12, c: 13 }
+        </script>
+        <!-- prettier-ignore -->
         7. pick
         8. indexBy
         9. indexBy 된 값을 filter 하기
