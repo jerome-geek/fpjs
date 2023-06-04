@@ -152,9 +152,29 @@
             // [['a', 11], ['b', 12], ['c', 13]]
             // { a: 11 }...
             // { a: 11, b: 12, c: 13 }
+            console.clear();
         </script>
+
         <!-- prettier-ignore -->
         7. pick
+        <script>
+            const obj2 = { a: 1, b: 2, c: 3, d: 4, e: 5 };
+
+            const pick = (ks, obj) =>
+                _.go(
+                    ks,
+                    L.map((k) => [k, obj[k]]),
+                    L.reject(([k, v]) => v === undefined),
+                    object,
+                );
+
+            // const pick = (ks, obj) => object(_.map((k) => [k, obj[k]], ks));
+
+            console.log(pick(['b', 'c', 'z'], obj2));
+            // { b: 2, c: 3 }
+        </script>
+
+        <!-- prettier-ignore -->
         8. indexBy
         9. indexBy 된 값을 filter 하기
     </body>

@@ -119,7 +119,7 @@
     5. [x] 어떠한 값이든 이터러블 프로그래밍으로 다루기
     6. [x] object
     7. [x] mapObject
-    8. [ ] pick
+    8. [x] pick
     9. [ ] indexBy
     10. [ ] indexBy 된 값을 filter 하기
 4. 객체지향과 함께 사용하기 - 사용자 정의 객체를 이터러블 프로그래밍으로
