@@ -120,7 +120,7 @@
     6. [x] object
     7. [x] mapObject
     8. [x] pick
-    9. [ ] indexBy
+    9. [x] indexBy
     10. [ ] indexBy 된 값을 filter 하기
 4. 객체지향과 함께 사용하기 - 사용자 정의 객체를 이터러블 프로그래밍으로
     1. [ ] Map, Set, NodeList
