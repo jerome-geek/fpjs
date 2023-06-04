@@ -121,7 +121,7 @@
     7. [x] mapObject
     8. [x] pick
     9. [x] indexBy
-    10. [ ] indexBy 된 값을 filter 하기
+    10. [x] indexBy 된 값을 filter 하기
 4. 객체지향과 함께 사용하기 - 사용자 정의 객체를 이터러블 프로그래밍으로
     1. [ ] Map, Set, NodeList
     2. [ ] Model, Collection 클래스 만들어서 이터러블 프로토콜 지원하기
