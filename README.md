@@ -125,7 +125,7 @@
 4. 객체지향과 함께 사용하기 - 사용자 정의 객체를 이터러블 프로그래밍으로
     1. [x] Map, Set, NodeList
     2. [x] Model, Collection 클래스 만들어서 이터러블 프로토콜 지원하기
-    3. [ ] Product, Products - 메서드를 함수형으로 구현하기
+    3. [x] Product, Products - 메서드를 함수형으로 구현하기
 5. 시간을 이터러블로 다루기
     1. [ ] range와 take의 재해석
     2. [ ] takeWhile, takeUntil

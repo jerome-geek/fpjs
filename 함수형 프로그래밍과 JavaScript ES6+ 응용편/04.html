@@ -34,7 +34,7 @@
             s.add(20);
             s.add(30);
 
-            const add = (a, b) => a + b;
+            // const add = (a, b) => a + b;
 
             console.log(_.reduce(add, s));
         </script>
@@ -99,10 +99,54 @@
                 _.each((m) => m.set('name', m.get('name').toLowerCase())),
             );
             console.log(coll);
+            console.clear();
         </script>
 
         <!-- prettier-ignore -->
         3. Product, Products
-        <script></script>
+        <script>
+            const add = (a, b) => a + b;
+            const addAll = _.reduce(add);
+
+            class Product extends Model {}
+            class Products extends Collection {
+                getPrices() {
+                    return L.map((p) => p.get('price'), this);
+                }
+
+                totalPrice() {
+                    // let total = 0;
+                    // this._models.forEach((product) => {
+                    //     total += product.get('price');
+                    // });
+                    // return total;
+
+                    // return _.go(
+                    //     this,
+                    //     L.map((p) => p.get('price')),
+                    //     _.reduce((a, b) => a + b),
+                    // );
+
+                    // return _.reduce(
+                    //     (a, b) => a + b,
+                    //     L.map((p) => p.get('price'), this),
+                    // );
+
+                    // return addAll(L.map((p) => p.get('price'), this));
+
+                    return addAll(this.getPrices());
+                }
+            }
+
+            const products = new Products();
+            products.add(new Product({ id: 1, price: 10000 }));
+            console.log(products.totalPrice());
+
+            products.add(new Product({ id: 3, price: 25000 }));
+            console.log(products.totalPrice());
+
+            products.add(new Product({ id: 5, price: 35000 }));
+            console.log(products.totalPrice());
+        </script>
     </body>
 </html>
