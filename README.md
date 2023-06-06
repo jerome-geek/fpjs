@@ -127,7 +127,7 @@
     2. [x] Model, Collection 클래스 만들어서 이터러블 프로토콜 지원하기
     3. [x] Product, Products - 메서드를 함수형으로 구현하기
 5. 시간을 이터러블로 다루기
-    1. [ ] range와 take의 재해석
+    1. [x] range와 take의 재해석
     2. [ ] takeWhile, takeUntil
     3. [ ] 자동차 경주 - 할 일들을 이터러블(리스트)로 바라보기
     4. [ ] 아임포트 결제 누락 처리 스케쥴러 - API 설명

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>04. 시간을 이터러블로 다루기</title>
+        <script src="./fx.js"></script>
+    </head>
+    <body>
+        <!-- prettier-ignore -->
+        ## 시간을 이터러블로 다루기
+
+        <!-- prettier-ignore -->
+        1. range와 take의 재해석
+        <script>
+            // 가로로 평가
+            _.go(
+                _.range(10), // <-- 0에서 9까지의 배열
+                _.take(3), // <-- 앞에서부터 3개만 자르기
+                _.each(console.log),
+            );
+
+            // 세로로 평가
+            _.go(
+                L.range(10), // <-- 0에서 9까지의 이터러블, 최대 10번 일어날 일
+                L.map(_.delay(1000)),
+                L.map((_) => new Date()),
+                L.filter((a) => a % 2),
+                L.take(3), // <-- 최대 3개의 값을 필요로 하고, 최대 3번의 일을 수행
+                _.each(console.log),
+            );
+        </script>
+
+        <!-- prettier-ignore -->
+        2. takeWhile, takeUntil
+        <script></script>
+
+        <!-- prettier-ignore -->
+        3. 할 일들을 이터러블(리스트)로 바라보기
+        <script></script>
+    </body>
+</html>
