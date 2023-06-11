@@ -71,16 +71,16 @@
             // 반면, track 자체를 사용해 이 작업을 수행하면, track 배열이 끝날 때까지 순차적으로 작업을 수행해야 합니다.
             // 하지만 L.range(Infinity)를 이용하면 일단 takeWhile() 함수를 만족하는 값을 찾으면 즉시 종료되므로 더욱 효율적입니다.
             // 이것이 range 함수를 선택한 이유입니다. 다른 질문이 있으면 또 물어봐주세요. 감사합니다.
-            _.go(
-                L.range(100),
-                L.map((i) => track[i]),
-                L.map(({ cars }) => cars),
-                L.map(_.delay(2000)),
-                L.takeWhile(({ length: l }) => l === 4),
-                L.flat,
-                L.map((car) => `${car} 출발!`),
-                _.each(console.log),
-            );
+            // _.go(
+            //     L.range(100),
+            //     L.map((i) => track[i]),
+            //     L.map(({ cars }) => cars),
+            //     L.map(_.delay(2000)),
+            //     L.takeWhile(({ length: l }) => l === 4),
+            //     L.flat,
+            //     L.map((car) => `${car} 출발!`),
+            //     _.each(console.log),
+            // );
         </script>
 
         <!-- prettier-ignore -->
@@ -106,7 +106,31 @@
                     5: [],
                     // ...
                 },
+                getPayments: (page) => {
+                    console.log(`http://..?page=${page}`);
+                    return _.delay(1000, Impt.payments[page]);
+                },
+                cancelPayment: (imp_id) =>
+                    Promise.resolve(`${imp_id}: 취소완료`),
             };
+
+            const DB = {
+                getOrders: (ids) => _.delay(100, [{ id: 1, id: 3, id: 7 }]),
+            };
+
+            async function job() {
+                // 결제된 결제모듈측 payments 정보를 가져온다
+                // page 단위로 가져오는데, 결제 데이터가 있을 때까지 모두 가져와서 하나로 합친다.
+                const payments = await _.go(
+                    L.range(1, Infinity),
+                    L.map(Impt.getPayments),
+                    L.takeUntil(({ length }) => length < 3),
+                    _.flat,
+                );
+
+                console.log(payments);
+            }
+            job();
         </script>
     </body>
 </html>
