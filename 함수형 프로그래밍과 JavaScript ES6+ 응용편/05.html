@@ -14,30 +14,52 @@
         <!-- prettier-ignore -->
         1. range와 take의 재해석
         <script>
-            // 가로로 평가
-            _.go(
-                _.range(10), // <-- 0에서 9까지의 배열
-                _.take(3), // <-- 앞에서부터 3개만 자르기
-                _.each(console.log),
-            );
+            // // 가로로 평가
+            // _.go(
+            //     _.range(10), // <-- 0에서 9까지의 배열
+            //     _.take(3), // <-- 앞에서부터 3개만 자르기
+            //     _.each(console.log),
+            // );
 
-            // 세로로 평가
-            _.go(
-                L.range(10), // <-- 0에서 9까지의 이터러블, 최대 10번 일어날 일
-                L.map(_.delay(1000)),
-                L.map((_) => new Date()),
-                L.filter((a) => a % 2),
-                L.take(3), // <-- 최대 3개의 값을 필요로 하고, 최대 3번의 일을 수행
-                _.each(console.log),
-            );
+            // // 세로로 평가
+            // _.go(
+            //     L.range(10), // <-- 0에서 9까지의 이터러블, 최대 10번 일어날 일
+            //     L.map(_.delay(1000)),
+            //     L.map((_) => new Date()),
+            //     L.filter((a) => a % 2),
+            //     _.take(3), // <-- 최대 3개의 값을 필요로 하고, 최대 3번의 일을 수행
+            //     _.each(console.log),
+            // );
         </script>
 
         <!-- prettier-ignore -->
         2. takeWhile, takeUntil
-        <script></script>
+        <script>
+            // _.go(
+            //     [1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0],
+            //     L.takeWhile((a) => a),
+            //     _.each(console.log),
+            // );
+
+            // _.go(
+            //     [1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0],
+            //     L.takeUntil((a) => a),
+            //     _.each(console.log),
+            // );
+
+            // _.go(
+            //     [0, false, undefined, null, 10, 20, 30],
+            //     L.takeUntil((a) => a),
+            //     _.each(console.log),
+            // );
+        </script>
 
         <!-- prettier-ignore -->
         3. 할 일들을 이터러블(리스트)로 바라보기
+        <script></script>
+
+        <!-- prettier-ignore -->
+        4. 아임포트 결제 누락 스케쥴러 만들기
         <script></script>
     </body>
 </html>
