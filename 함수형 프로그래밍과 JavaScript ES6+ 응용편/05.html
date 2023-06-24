@@ -133,14 +133,23 @@
                 );
 
                 // 결제가 실제로 완료된 가맹점 측 주문서 id들을 뽑는다
-                const orderIds = await _.go(
+                const order_ids = await _.go(
                     payments,
                     _.map((p) => p.order_id),
                     DB.getOrders,
                     _.map(({ id }) => id),
                 );
 
-                console.log(orderIds);
+                // 결제모듈의 payments와 가맹점의 주문서를 비교해서
+                // 결제를 취소해야할 id들을 뽑아서
+                // 결제 취소 api를 실행
+                await _.go(
+                    payments,
+                    L.reject((p) => order_ids.includes(p.order_id)),
+                    L.map((p) => p.imp_id),
+                    L.map(Impt.cancelPayment),
+                    _.each(console.log),
+                );
             }
             job();
         </script>
