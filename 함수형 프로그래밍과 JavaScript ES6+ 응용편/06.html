@@ -213,10 +213,58 @@
                 //         _.go(e.currentTarget, $.closest('.image'), $.remove),
                 //     ),
                 // ),
-                $.on('click', (e) =>
-                    _.go(e.currentTarget, $.closest('.image'), $.remove),
+                // 구조분해를 하지 않고 쓰면 e.currentTarget이 null로 찍힌다
+                // TO Check: https://stackoverflow.com/questions/66085763/why-currenttarget-value-is-null
+                $.on(
+                    'click',
+                    async ({ currentTarget }) =>
+                        (await Ui.confirm('정말 삭제하시겠습니까?')) &&
+                        _.go(currentTarget, $.closest('.image'), $.remove),
                 ),
             );
+
+            const Ui = {};
+
+            Ui.confirm = (msg) =>
+                new Promise((resolve) =>
+                    _.go(
+                        `
+                            <div class="confirm">
+                                <div class="body">
+                                    <div class="msg">${msg}</div>
+                                    <div class="buttons">
+                                        <button type="button" class="cancel">취소</button>
+                                        <button type="button" class="ok">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `,
+                        $.el,
+                        $.append($.qs('body')),
+                        _.tap(
+                            $.find('.ok'),
+                            $.on('click', (e) =>
+                                _.go(
+                                    e.currentTarget,
+                                    $.closest('.confirm'),
+                                    $.remove,
+                                    (_) => resolve(true),
+                                ),
+                            ),
+                        ),
+                        _.tap(
+                            $.find('.cancel'),
+                            $.on('click', (e) =>
+                                _.go(
+                                    e.currentTarget,
+                                    $.closest('.confirm'),
+                                    $.remove,
+                                    (_) => resolve(false),
+                                ),
+                            ),
+                        ),
+                    ),
+                );
         </script>
     </body>
 </html>
