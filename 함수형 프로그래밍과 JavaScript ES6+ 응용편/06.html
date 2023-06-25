@@ -145,7 +145,13 @@
         <script>
             const $ = {};
 
-            $.qs = document.querySelector.bind(document);
+            // 인자가 가변인 경우에는 currying을 적용할 수 없음
+            $.qs = (sel, parent = document) => parent.querySelector(sel);
+            $.qsa = (sel, parent = document) => parent.querySelectorAll(sel);
+
+            // 인자를 무조건 2개 받는 함수
+            $.find = _.curry($.qs);
+            $.findAll = _.curry($.qsa);
 
             $.el = (html) => {
                 const wrap = document.createElement('div');
@@ -154,6 +160,16 @@
             };
 
             $.append = _.curry((parent, child) => parent.appendChild(child));
+
+            $.closest = _.curry((sel, el) => el.closest(sel));
+
+            $.remove = (el) => el.parentNode.removeChild(el);
+
+            $.on = (event, f) => (els) =>
+                _.each(
+                    (el) => el.addEventListener(event, f),
+                    _.isIterable(els) ? els : [els],
+                );
         </script>
 
         <script>
@@ -176,6 +192,7 @@
                         (img) => `<div class="image">
                             <div class="box"><img src="${img.url}" alt="" /></div>
                             <div class="name">${img.name}</div>
+                            <div class="remove">x</div>
                         </div>`,
                         imgs,
                     )}
@@ -189,7 +206,16 @@
                 // (el) => document.querySelector('body').appendChild(el),
                 // (el) => $.append($.qs('body'), el),
                 $.append($.qs('body')),
-                console.log,
+                // (el) => $.qsa('.image', el),
+                $.findAll('.image'),
+                // _.each((el) =>
+                //     el.addEventListener('click', (e) =>
+                //         _.go(e.currentTarget, $.closest('.image'), $.remove),
+                //     ),
+                // ),
+                $.on('click', (e) =>
+                    _.go(e.currentTarget, $.closest('.image'), $.remove),
+                ),
             );
         </script>
     </body>
