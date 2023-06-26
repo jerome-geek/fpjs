@@ -170,6 +170,8 @@
                     (el) => el.addEventListener(event, f),
                     _.isIterable(els) ? els : [els],
                 );
+
+            $.addClass = _.curry((name, el) => el.classList.add(name));
         </script>
 
         <script>
@@ -190,7 +192,7 @@
                 <div class="images">
                     ${_.strMap(
                         (img) => `<div class="image">
-                            <div class="box"><img src="${img.url}" alt="" /></div>
+                            <div class="box"><img src="" lazy-src="${img.url}" class="fade" alt="" /></div>
                             <div class="name">${img.name}</div>
                             <div class="remove">x</div>
                         </div>`,
@@ -206,6 +208,18 @@
                 // (el) => document.querySelector('body').appendChild(el),
                 // (el) => $.append($.qs('body'), el),
                 $.append($.qs('body')),
+                _.tap(
+                    $.findAll('img'),
+                    L.map(
+                        (img) =>
+                            new Promise((resolve) => {
+                                img.onload = () => resolve(img);
+                                img.src = img.getAttribute('lazy-src');
+                            }),
+                    ),
+                    C.takeAll,
+                    _.each($.addClass('fade-in')),
+                ),
                 // (el) => $.qsa('.image', el),
                 $.findAll('.image'),
                 // _.each((el) =>
@@ -289,26 +303,26 @@
 
             // Ui.confirm('삭제 하시겠습니까?');
             // Ui.alert('삭제 하시겠습니까?');
-            Ui.message(
-                [
-                    {
-                        name: '취소',
-                        type: 'cancel',
-                        value: false,
-                    },
-                    {
-                        name: '중간',
-                        type: 'middle',
-                        value: false,
-                    },
-                    {
-                        name: '확인',
-                        type: 'ok',
-                        value: true,
-                    },
-                ],
-                '삭제 하시겠습니까?',
-            );
+            // Ui.message(
+            //     [
+            //         {
+            //             name: '취소',
+            //             type: 'cancel',
+            //             value: false,
+            //         },
+            //         {
+            //             name: '중간',
+            //             type: 'middle',
+            //             value: false,
+            //         },
+            //         {
+            //             name: '확인',
+            //             type: 'ok',
+            //             value: true,
+            //         },
+            //     ],
+            //     '삭제 하시겠습니까?',
+            // );
         </script>
     </body>
 </html>
