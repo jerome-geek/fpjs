@@ -212,22 +212,21 @@
                                 img.src = img.getAttribute('lazy-src');
                             }),
                     ),
-                    (lazy) => {
-                        let r = L.range(Infinity);
-                        return _.go(
-                            lazy,
-                            _.groupBy((_) =>
-                                Math.floor(r.next().value / limit),
-                            ),
-                            L.values,
-                            L.map(L.map((f) => f())),
-                            L.map(C.takeAll),
-                            _.each(_.each($.addClass('fade-in'))),
-                        );
-                    },
-                    // C.takeAll,
-                    // _.each($.addClass('fade-in')),
+                    C.takeAllWithLimit(limit),
+                    _.each(_.each($.addClass('fade-in'))),
                 );
+
+            C.takeAllWithLimit = _.curry((limit, iter) => {
+                let r = L.range(Infinity);
+
+                return _.go(
+                    iter,
+                    _.groupBy((_) => Math.floor(r.next().value / limit)),
+                    L.values,
+                    L.map(L.map((f) => f())),
+                    L.map(C.takeAll),
+                );
+            });
 
             _.go(
                 Images.fetch(),
@@ -236,7 +235,7 @@
                 // (el) => document.querySelector('body').appendChild(el),
                 // (el) => $.append($.qs('body'), el),
                 $.append($.qs('body')),
-                Images.loader(8),
+                Images.loader(4),
                 // (el) => $.qsa('.image', el),
                 $.findAll('.image'),
                 // _.each((el) =>
