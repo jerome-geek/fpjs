@@ -201,6 +201,34 @@
                 </div>
             `;
 
+            Images.loader = (limit) =>
+                _.tap(
+                    $.findAll('img'),
+                    // 함수로 한 번 더 묶어서 Promise가 평가되는 시점을 미룬다
+                    L.map(
+                        (img) => (_) =>
+                            new Promise((resolve) => {
+                                img.onload = () => resolve(img);
+                                img.src = img.getAttribute('lazy-src');
+                            }),
+                    ),
+                    (lazy) => {
+                        let r = L.range(Infinity);
+                        return _.go(
+                            lazy,
+                            _.groupBy((_) =>
+                                Math.floor(r.next().value / limit),
+                            ),
+                            L.values,
+                            L.map(L.map((f) => f())),
+                            L.map(C.takeAll),
+                            _.each(_.each($.addClass('fade-in'))),
+                        );
+                    },
+                    // C.takeAll,
+                    // _.each($.addClass('fade-in')),
+                );
+
             _.go(
                 Images.fetch(),
                 Images.tmpl,
@@ -208,18 +236,7 @@
                 // (el) => document.querySelector('body').appendChild(el),
                 // (el) => $.append($.qs('body'), el),
                 $.append($.qs('body')),
-                _.tap(
-                    $.findAll('img'),
-                    L.map(
-                        (img) =>
-                            new Promise((resolve) => {
-                                img.onload = () => resolve(img);
-                                img.src = img.getAttribute('lazy-src');
-                            }),
-                    ),
-                    C.takeAll,
-                    _.each($.addClass('fade-in')),
-                ),
+                Images.loader(8),
                 // (el) => $.qsa('.image', el),
                 $.findAll('.image'),
                 // _.each((el) =>
