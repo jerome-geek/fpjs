@@ -175,6 +175,94 @@
         </script>
 
         <script>
+            const Ui = {};
+
+            Ui.message = _.curry(
+                (btns, msg) =>
+                    new Promise((resolve) =>
+                        _.go(
+                            `
+                <div class="confirm">
+                    <div class="body">
+                        <div class="msg">${msg}</div>
+                        <div class="buttons">
+                            ${_.strMap(
+                                (btn) => `
+                                <button type="button" class="${btn.type}">${btn.name}</button>
+                            `,
+                                btns,
+                            )}
+                        </div>
+                    </div>
+                </div>
+            `,
+                            $.el,
+                            $.append($.qs('body')),
+                            ..._.map(
+                                (btn) =>
+                                    _.tap(
+                                        $.find(`.${btn.type}`),
+                                        $.on('click', (e) =>
+                                            _.go(
+                                                e.currentTarget,
+                                                $.closest('.confirm'),
+                                                $.remove,
+                                                (_) => resolve(btn.value),
+                                            ),
+                                        ),
+                                    ),
+
+                                btns,
+                            ),
+                        ),
+                    ),
+            );
+
+            Ui.confirm = Ui.message([
+                {
+                    name: '취소',
+                    type: 'cancel',
+                    value: false,
+                },
+                {
+                    name: '확인',
+                    type: 'ok',
+                    value: true,
+                },
+            ]);
+
+            Ui.alert = Ui.message([
+                {
+                    name: '확인',
+                    type: 'ok',
+                    value: true,
+                },
+            ]);
+
+            Ui.remover = (
+                btnSel,
+                targetSel,
+                before = (a) => a,
+                after = (a) => a,
+            ) =>
+                _.tap(
+                    $.findAll(btnSel),
+                    $.on(
+                        'click',
+                        async ({ currentTarget }) =>
+                            (await Ui.confirm('정말 삭제하시겠습니까?')) &&
+                            _.go(
+                                currentTarget,
+                                $.closest(targetSel),
+                                _.tap(before),
+                                $.remove,
+                                _.tap(after),
+                            ),
+                    ),
+                );
+        </script>
+
+        <script>
             const Images = {};
 
             Images.fetch = () =>
@@ -242,110 +330,11 @@
                 // (el) => document.querySelector('body').appendChild(el),
                 // (el) => $.append($.qs('body'), el),
                 $.append($.qs('body')),
-                Images.loader(),
-                // (el) => $.qsa('.image', el),
-                $.findAll('.image'),
-                // _.each((el) =>
-                //     el.addEventListener('click', (e) =>
-                //         _.go(e.currentTarget, $.closest('.image'), $.remove),
-                //     ),
-                // ),
-                // 구조분해를 하지 않고 쓰면 e.currentTarget이 null로 찍힌다
-                // TO Check: https://stackoverflow.com/questions/66085763/why-currenttarget-value-is-null
-                $.on(
-                    'click',
-                    async ({ currentTarget }) =>
-                        (await Ui.confirm('정말 삭제하시겠습니까?')) &&
-                        _.go(currentTarget, $.closest('.image'), $.remove),
+                Ui.remover('.remove', '.image', (_) =>
+                    console.log('서버 통신!'),
                 ),
+                Images.loader(4),
             );
-
-            const Ui = {};
-
-            Ui.message = _.curry(
-                (btns, msg) =>
-                    new Promise((resolve) =>
-                        _.go(
-                            `
-                            <div class="confirm">
-                                <div class="body">
-                                    <div class="msg">${msg}</div>
-                                    <div class="buttons">
-                                        ${_.strMap(
-                                            (btn) => `
-                                            <button type="button" class="${btn.type}">${btn.name}</button>
-                                        `,
-                                            btns,
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        `,
-                            $.el,
-                            $.append($.qs('body')),
-                            ..._.map(
-                                (btn) =>
-                                    _.tap(
-                                        $.find(`.${btn.type}`),
-                                        $.on('click', (e) =>
-                                            _.go(
-                                                e.currentTarget,
-                                                $.closest('.confirm'),
-                                                $.remove,
-                                                (_) => resolve(btn.value),
-                                            ),
-                                        ),
-                                    ),
-
-                                btns,
-                            ),
-                        ),
-                    ),
-            );
-
-            Ui.confirm = Ui.message([
-                {
-                    name: '취소',
-                    type: 'cancel',
-                    value: false,
-                },
-                {
-                    name: '확인',
-                    type: 'ok',
-                    value: true,
-                },
-            ]);
-
-            Ui.alert = Ui.message([
-                {
-                    name: '확인',
-                    type: 'ok',
-                    value: true,
-                },
-            ]);
-
-            // Ui.confirm('삭제 하시겠습니까?');
-            // Ui.alert('삭제 하시겠습니까?');
-            // Ui.message(
-            //     [
-            //         {
-            //             name: '취소',
-            //             type: 'cancel',
-            //             value: false,
-            //         },
-            //         {
-            //             name: '중간',
-            //             type: 'middle',
-            //             value: false,
-            //         },
-            //         {
-            //             name: '확인',
-            //             type: 'ok',
-            //             value: true,
-            //         },
-            //     ],
-            //     '삭제 하시겠습니까?',
-            // );
         </script>
     </body>
 </html>
