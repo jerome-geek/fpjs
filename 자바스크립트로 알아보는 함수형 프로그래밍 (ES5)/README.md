@@ -6,7 +6,7 @@
     3. [x] 요즘 개발 이야기, 함수형 프로그래밍 정의
 2. 함수형으로 전환하기
     1. [x] 회원 목록, map, filter
-    2. [ ] each
+    2. [x] each
     3. [ ] 다형성
     4. [ ] 커링, curry, curryr
     5. [ ] reduce

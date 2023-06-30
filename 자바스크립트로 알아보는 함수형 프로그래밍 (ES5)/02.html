@@ -54,24 +54,6 @@
             console.log(ages);
 
             // 2. _filter, _map으로 리팩토링 - 다형성이 매우 높음 (데이터가 어떻게 생겼는지 보이지 않으므로 관심사가 완전히 분리됨)
-            function _filter(list, predi) {
-                var new_list = [];
-                for (var i = 0; i < list.length; i++) {
-                    if (predi(list[i])) {
-                        new_list.push(list[i]);
-                    }
-                }
-                return new_list;
-            }
-
-            function _map(list, mapper) {
-                var new_list = [];
-                for (var i = 0; i < list.length; i++) {
-                    new_list.push(mapper(list[i]));
-                }
-                return new_list;
-            }
-
             var over_30 = _filter(users, function (user) {
                 return user.age >= 30;
             });
