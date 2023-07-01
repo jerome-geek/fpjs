@@ -7,7 +7,7 @@
 2. 함수형으로 전환하기
     1. [x] 회원 목록, map, filter
     2. [x] each
-    3. [ ] 다형성
+    3. [x] 다형성
     4. [ ] 커링, curry, curryr
     5. [ ] reduce
     6. [ ] 파이프라인, \_go, \_pipe, 화살표 함수

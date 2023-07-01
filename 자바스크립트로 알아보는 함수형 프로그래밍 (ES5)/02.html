@@ -103,6 +103,41 @@
             //         return !(num % 2);
             //     }),
             // );
+
+            // 3. each 만들기
+            // 3-1. _each로 _map, _filter 중복 제거
+
+            // 3-2. 외부 다형성
+            // 3-2-1. array_like, arguments, document.querySelectorAll
+            console.log(
+                [1, 2, 3, 4].map(function (val) {
+                    return val * 2;
+                }),
+            );
+
+            console.log(
+                [1, 2, 3, 4].filter(function (val) {
+                    return val % 2;
+                }),
+            );
+
+            console.log(document.querySelectorAll('*'));
+
+            console.log(
+                _map(document.querySelectorAll('*'), function (node) {
+                    return node.nodeName;
+                }),
+            );
+
+            // 3-3. 내부 다형성
+            // 3-3-1. predicate(predi), iteratee(iter), mapper
+            _map([1, 2, 3, 4], function (v) {
+                return v + 10;
+            });
+
+            // 4. 커링
+            // 4-1. _curry, _curryr
+            // 4-2. _get 만들어 좀 더 간단하게 하기
         </script>
     </body>
 </html>
