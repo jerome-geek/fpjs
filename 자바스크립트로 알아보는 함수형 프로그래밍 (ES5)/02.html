@@ -137,31 +137,6 @@
 
             // 4. 커링 (함수에 인자를 1개씩 채워나가다가 필요한 인자가 모두 채워지면 함수를 실행)
             // 4-1. _curry, _curryr
-            /**
-             * _curry
-             * - curry 함수를 실행한 결과의 인자가 2개인 경우 바로 함수 실행
-             * - curry 함수를 실행한 결과의 인자가 2개가 아닌 경우 함수 실행을 뒤로 미룸
-             */
-            function _curry(fn) {
-                return function (a, b) {
-                    return arguments.length === 2
-                        ? fn(a, b)
-                        : function (b) {
-                              return fn(a, b);
-                          };
-                };
-            }
-
-            function _curryr(fn) {
-                return function (a, b) {
-                    return arguments.length === 2
-                        ? fn(a, b)
-                        : function (b) {
-                              return fn(b, a);
-                          };
-                };
-            }
-
             var add = _curry(function (a, b) {
                 return a + b;
             });
@@ -185,9 +160,6 @@
             console.log(sub10(5)); // 5 - 10
 
             // 4-2. _get 만들어 좀 더 간단하게 하기
-            var _get = _curryr(function (obj, key) {
-                return obj == null ? undefined : obj[key];
-            });
 
             console.log(
                 _map(
@@ -218,6 +190,36 @@
 
             // console.log(users[10].name);
             // console.log(_get(users[10], 'name'));
+
+            console.clear();
+
+            // 5. reduce 만들기
+            var slice = Array.prototype.slice;
+            function _rest(list, num) {
+                return slice.call(list, num || 1);
+            }
+
+            function _reduce(list, iter, memo) {
+                if (arguments.length === 2) {
+                    memo = list[0];
+                    list = _rest(list);
+                }
+
+                _each(list, function (val) {
+                    memo = iter(memo, val);
+                });
+
+                return memo;
+            }
+
+            console.log(_reduce([1, 2, 3], add, 10)); // 16
+            console.log(_reduce([1, 2, 3], add)); // 6
+            console.log(_reduce([1, 2, 3, 4], add, 10)); // 20
+
+            // 6. 파이프라인 만들기
+            // 6-1. _pipe
+            // 6-2. _go
+            // 6-3. users에 go 적용
         </script>
     </body>
 </html>

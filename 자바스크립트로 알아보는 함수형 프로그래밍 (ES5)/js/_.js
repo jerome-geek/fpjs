@@ -1,3 +1,32 @@
+/**
+ * _curry
+ * - curry 함수를 실행한 결과의 인자가 2개인 경우 바로 함수 실행
+ * - curry 함수를 실행한 결과의 인자가 2개가 아닌 경우 함수 실행을 뒤로 미룸
+ */
+function _curry(fn) {
+    return function (a, b) {
+        return arguments.length === 2
+            ? fn(a, b)
+            : function (b) {
+                  return fn(a, b);
+              };
+    };
+}
+
+function _curryr(fn) {
+    return function (a, b) {
+        return arguments.length === 2
+            ? fn(a, b)
+            : function (b) {
+                  return fn(b, a);
+              };
+    };
+}
+
+var _get = _curryr(function (obj, key) {
+    return obj == null ? undefined : obj[key];
+});
+
 function _filter(list, predi) {
     var new_list = [];
     _each(list, function (val) {
