@@ -10,7 +10,7 @@
     3. [x] 다형성
     4. [x] 커링, curry, curryr
     5. [x] reduce
-    6. [ ] 파이프라인, \_go, \_pipe, 화살표 함수
+    6. [x] 파이프라인, \_go, \_pipe, 화살표 함수
     7. [ ] 다형성 높이기, \_keys, 에러
 3. 컬렉션 중심 프로그래밍
     1. [ ] 수집하기 - map, values, pluck
