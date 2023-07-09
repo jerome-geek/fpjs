@@ -117,3 +117,17 @@ function _go(arg) {
     var fns = _rest(arguments);
     return _pipe.apply(null, fns)(arg);
 }
+
+function _values(data) {
+    return _map(data, _identity);
+}
+
+var _values = _map(_identity);
+
+function _identity(val) {
+    return val;
+}
+
+function _pluck(data, key) {
+    return _map(data, _get(key));
+}

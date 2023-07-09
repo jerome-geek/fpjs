@@ -13,7 +13,7 @@
     6. [x] 파이프라인, \_go, \_pipe, 화살표 함수
     7. [x] 다형성 높이기, \_keys, 에러
 3. 컬렉션 중심 프로그래밍
-    1. [ ] 수집하기 - map, values, pluck
+    1. [x] 수집하기 - map, values, pluck
     2. [ ] 거르기 - reject, compact
     3. [ ] 찾아내기- find, find_index, some, every
     4. [ ] 접기 - reduce, min_by, max_by
