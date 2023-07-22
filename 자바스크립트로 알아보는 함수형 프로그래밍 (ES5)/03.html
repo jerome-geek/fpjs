@@ -48,7 +48,7 @@
                 }),
             );
 
-            // 2-1. reject\
+            // 2-1. reject
             console.log(
                 _reject(users, function (user) {
                     return user.age > 30;
@@ -59,9 +59,75 @@
 
             // 3. 찾아내기 - find
             // 3-1. find 만들기
+            console.log(
+                _get(
+                    _find(users, function (user) {
+                        return user.id == 50;
+                    }),
+                    'name',
+                ),
+            );
+            _go(
+                users,
+                _find(function (user) {
+                    return user.id == 50;
+                }),
+                _get('name'),
+                console.log,
+            );
+
             // 3-2. find_index
+            console.log(
+                _find_index(users, function (user) {
+                    return user.id == 50;
+                }),
+            );
+            _go(
+                users,
+                _find_index(function (user) {
+                    return user.id == 50;
+                }),
+                console.log,
+            );
+
             // 3-3. some
+            console.log(
+                _some([1, 2, 5, 10, 20], function (val) {
+                    return val > 20;
+                }),
+            );
+            console.log(
+                _some([1, 2, 5, 10, 20], function (val) {
+                    return val > 10;
+                }),
+            );
+
             // 3-4. every
+            console.log(
+                _every([1, 2, 5, 10, 20], function (val) {
+                    return val > 10;
+                }),
+            );
+            console.log(
+                _every([12, 24, 5, 10, 20], function (val) {
+                    return val > 3;
+                }),
+            );
+
+            console.log(_some([1, 2, 0, 10])); // true
+            console.log(_some([null, false, 0])); // false
+            console.log(_some([null, false, 1])); // true
+
+            console.log(_every([1, 2, 0, 10])); // false
+            console.log(_every([null, false, 0])); // false
+            console.log(_every([null, false, 1])); // false
+            console.log(_every([1, 2, 10])); // true
+
+            console.log(
+                _some(users, function (user) {
+                    return user.age < 20;
+                }),
+            );
 
             // 4. 접기 - reduce
             // 4-1. min, max, min_by, max_by
