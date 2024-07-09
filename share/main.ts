@@ -37,9 +37,14 @@ check<Head<[]>, undefined>(Pass);
 check<Head<[]>, 2>(Fail);
 
 // never = 공집합
-type Length<T extends any[]> = T['length'];
-
+type Length<T extends any[] | string, P extends any[] = []> = T extends any[]
+    ? T['length']
+    : T extends `${T[0]}${infer A}`
+    ? Length<A, Append<P, any>>
+    : Length<P>;
 check<Length<[1, 2, 3]>, 3>(Pass);
+check<Length<'abcd'>, 4>(Pass);
+check<Length<'🙏abcd'>, 6>(Pass);
 
 type HasTail<T extends any[]> = Length<T> extends 0 ? false : true;
 check<HasTail<[1, 2, 3]>, true>(Pass);
@@ -84,3 +89,68 @@ check<Concat<[1, 2, 3], [4, 5, 6]>, [1, 2, 3, 4, 5, 6]>(Pass);
 
 type Append<A extends any[], B> = Concat<A, [B]>;
 check<Append<[1, 2, 3], 4>, [1, 2, 3, 4]>(Pass);
+
+/**
+ * String 유틸함수
+ */
+type Join<T extends any[], S extends string> = Length<T> extends 0
+    ? ''
+    : Length<T> extends 1
+    ? `${T[0]}`
+    : `${T[0]}${S}${Join<Tail<T>, S>}`;
+check<Join<[1, 2, 3, 4, 5], ','>, '1,2,3,4,5'>(Pass);
+check<Join<[1], ','>, '1'>(Pass);
+check<Join<[], ','>, ''>(Pass);
+
+type Replace<
+    T extends string,
+    A extends string,
+    B extends string,
+> = T extends `${infer P1}${A}${infer P2}`
+    ? Replace<`${P1}${B}${P2}`, A, B>
+    : T;
+check<Replace<'abcdfdfda', 'f', 'c'>, 'abcdcdcda'>(Pass);
+
+type Split<
+    T extends string,
+    S extends string,
+    P extends any[] = [],
+> = T extends `${infer A}${S}${infer B}`
+    ? Split<B, S, Append<P, A>>
+    : Append<P, T>;
+check<Split<'asd,f,fd,dfasd', ','>, ['asd', 'f', 'fd', 'dfasd']>(Pass);
+
+// Split 유틸의 경우에는 버그가 있네요. 두 번째 인자로 ''(빈 문자열)을 넣었을 경우 결과 배열에 ''이 하나 더 붙습니다.
+// 따라서 예외를 하나 더 추가해 주어야 할 것 같네요.
+// type Split<
+//     Str extends string,
+//     Spliter extends string,
+//     Acc extends any[] = [],
+// > = Str extends `${infer A}${Spliter}${infer B}`
+//     ? Split<B, Spliter, Append<Acc, A>>
+//     : Str extends ''
+//     ? Acc
+//     : Append<Str, Acc>;
+
+// [].flat();
+// const arr = [1, 2, 3, 4, 5][0]; // 1
+// const arr = [1, 2, 3, 4, 5][1]; // 2
+
+// const arr = [-1, 0, 1, 2, 3, 4][2]; // 1
+// const arr = [-1, 0, 1, 2, 3, 4][1]; // 0
+
+type Flat<T, N extends number = 1> = {
+    0: T;
+    1: T extends Array<infer A> ? Flat<A, [-1, 0, 1, 2, 3, 4, 5, 6, 7][N]> : T;
+}[N extends -1 ? 0 : 1];
+
+declare function flat<T, N extends number = 1>(arr: T, n?: N): Flat<T, N>[];
+const arr = flat([1, 2, 3]);
+const arr2 = flat([1, 2, 3, [4]]);
+const arr3 = flat([1, 2, 3, [[4]]], 2);
+
+check<Flat<[1, 2, 3, [4]], 1>, 1 | 2 | 3 | 4>(Pass);
+check<Flat<[1, 2, 3, [[4]]], 1>, 1 | 2 | 3 | [4]>(Pass);
+check<Flat<[1, 2, 3, [[4]]], 2>, 1 | 2 | 3 | 4>(Pass);
+check<Flat<[1, 2, [3, [4]]], 1>, 1 | 2 | 3 | [4]>(Pass);
+check<Flat<[1, 2, [3, [4]]], 2>, 1 | 2 | 3 | 4>(Pass);
